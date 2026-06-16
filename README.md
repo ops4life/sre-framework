@@ -9,7 +9,7 @@ An open-source SRE Ops dashboard that helps teams apply Site Reliability Enginee
 ## Quickstart (zero infra required)
 
 ```bash
-git clone <repo>
+git clone https://github.com/ops4life/sre-framework
 cd sre
 docker compose -f demo/docker-compose.yml up --build
 ```
