@@ -1,0 +1,73 @@
+<svg width="800" height="200" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="200" rx="12" fill="url(#paint0_linear)"/>
+  
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="800" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#060707"/>
+      <stop offset="1" stop-color="#121415"/>
+    </linearGradient>
+    
+    <!-- Pulse Line Gradient -->
+    <linearGradient id="pulse_grad" x1="32" y1="0" x2="88" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#caff04" stop-opacity="1"/>
+    </linearGradient>
+    
+    <!-- Glow Filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Pattern: 36px layout grid matching SRE Dashboard -->
+  <path d="M0 36H800M0 72H800M0 108H800M0 144H800M0 180H800M36 0V200M72 0V200M108 0V200M144 0V200M180 0V200M216 0V200M252 0V200M288 0V200M324 0V200M360 0V200M396 0V200M432 0V200M468 0V200M504 0V200M540 0V200M576 0V200M612 0V200M648 0V200M684 0V200M720 0V200M756 0V200M792 0V200" stroke="white" stroke-opacity="0.025" stroke-width="1"/>
+
+  <!-- Logo Group -->
+  <g transform="translate(590, 30) scale(1.2)">
+    <!-- Outer radar/gauge circle -->
+    <circle cx="60" cy="60" r="54" fill="#0b0c0c" fill-opacity="0.6" stroke="white" stroke-opacity="0.04" stroke-width="1"/>
+    <circle cx="60" cy="60" r="48" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5" stroke-dasharray="4 6"/>
+    
+    <!-- Crosshair ticks -->
+    <path d="M 60 10 L 60 16 M 60 104 L 60 110 M 10 60 L 16 60 M 104 60 L 110 60" stroke="white" stroke-opacity="0.15" stroke-width="1.5" stroke-linecap="round"/>
+    
+    <!-- Outer ring base -->
+    <circle cx="60" cy="60" r="40" fill="none" stroke="white" stroke-opacity="0.08" stroke-width="5" stroke-linecap="round"/>
+    
+    <!-- SLO Arc: 3/4 circle showing high success rate (99.9%) -->
+    <circle cx="60" cy="60" r="40" fill="none" stroke="#caff04" stroke-width="5" stroke-linecap="round" stroke-dasharray="188.5 62.8" transform="rotate(135 60 60)"/>
+    
+    <!-- Glow behind the SLO Arc -->
+    <circle cx="60" cy="60" r="40" fill="none" stroke="#caff04" stroke-width="5" stroke-linecap="round" stroke-dasharray="188.5 62.8" transform="rotate(135 60 60)" opacity="0.3" filter="url(#glow)"/>
+
+    <!-- Dynamic metric wave/heartbeat inside -->
+    <path d="M 32 60 L 44 60 L 49 42 L 54 78 L 59 52 L 64 68 L 69 60 L 88 60" fill="none" stroke="url(#pulse_grad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Status glowing dot -->
+    <circle cx="88" cy="60" r="8" fill="#caff04" opacity="0.25" filter="url(#glow)"/>
+    <circle cx="88" cy="60" r="3.5" fill="#caff04"/>
+    
+    <!-- Decorative dashboard details -->
+    <text x="60" y="34" fill="white" font-family="'Outfit', 'Plus Jakarta Sans', 'Arial', sans-serif" font-size="8" font-weight="800" text-anchor="middle" letter-spacing="1">99.9%</text>
+    <text x="60" y="93" fill="#caff04" font-family="'Outfit', 'Plus Jakarta Sans', 'Arial', sans-serif" font-size="8" font-weight="800" text-anchor="middle" letter-spacing="1.5">SLO OK</text>
+  </g>
+
+  <!-- Typography -->
+  <!-- Context Prefix -->
+  <text x="50" y="55" fill="#caff04" font-family="'Outfit', 'Plus Jakarta Sans', 'Arial', sans-serif" font-size="12" font-weight="800" letter-spacing="3">OPS4LIFE OBSERVABILITY</text>
+  
+  <!-- Main Project Title -->
+  <text x="50" y="108" fill="white" font-family="'Outfit', 'Plus Jakarta Sans', 'Arial', sans-serif" font-size="46" font-weight="800" letter-spacing="-0.5">sre-framework</text>
+  
+  <!-- Slogan / Description -->
+  <text x="50" y="142" fill="#94A3B8" font-family="'Outfit', 'Plus Jakarta Sans', 'Arial', sans-serif" font-size="18" font-weight="500">Config-driven, Prometheus-native SRE dashboard</text>
+
+  <!-- Accent Detail -->
+  <rect x="50" y="162" width="80" height="4" rx="2" fill="#caff04"/>
+</svg>
