@@ -1,0 +1,20 @@
+# Demo SRE config — uses the generic http provider preset with synthetic data.
+# Works out-of-the-box with the bundled metrics-generator.
+provider: http
+default_service: api
+
+services:
+  - name: frontend
+    slo_target: 99.9
+    labels:
+      service: frontend
+
+  - name: api
+    slo_target: 99.5
+    labels:
+      service: api
+
+  - name: worker
+    slo_target: 99.0
+    labels:
+      service: worker

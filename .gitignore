@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Env
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Claude
+.claude/
+CLAUDE.md
+
+# OS
+.DS_Store

@@ -1,0 +1,33 @@
+# SRE framework main config.
+# provider: name of a preset in app/config/providers/ (traefik | http | custom)
+# default_service: name of the service selected on initial load.
+# queries: (optional) override or add individual query templates on top of the preset.
+# services: list of services to monitor; labels fill query template placeholders.
+
+provider: http
+default_service: api
+
+services:
+  - name: api
+    slo_target: 99.5
+    labels:
+      service: api        # fills {service} in query templates
+
+  - name: frontend
+    slo_target: 99.9
+    labels:
+      service: frontend
+
+  - name: worker
+    slo_target: 99.0
+    labels:
+      service: worker
+
+# Example: traefik preset with container labels
+# provider: traefik
+# services:
+#   - name: myapp
+#     slo_target: 99.9
+#     labels:
+#       service: myapp-svc@file
+#       container: myapp

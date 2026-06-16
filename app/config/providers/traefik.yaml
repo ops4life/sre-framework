@@ -1,0 +1,18 @@
+# Traefik provider preset.
+# Queries use traefik reverse-proxy metrics + dockerstats + node_exporter.
+# Placeholders ({service}, {container}, {window}) are filled per-service from
+# each service's `labels:` block in the main config (sre.yaml).
+# NOTE: literal PromQL braces are escaped as {{ }} for Python str.format.
+name: traefik
+latency_unit: seconds   # latency_p99 returns seconds; UI shows ms (code ×1000)
+queries:
+  availability: 'avg_over_time(traefik_service_server_up{{service="{service}"}}[{window}]) * 100'
+  request_rate: 'sum(rate(traefik_service_requests_total{{service="{service}"}}[5m]))'
+  latency_p99: 'histogram_quantile(0.99, sum(rate(traefik_service_request_duration_seconds_bucket{{service="{service}"}}[5m])) by (le))'
+  error_rate: 'sum(rate(traefik_service_requests_total{{service="{service}", code=~"5.."}}[5m])) / sum(rate(traefik_service_requests_total{{service="{service}"}}[5m])) * 100'
+  saturation: 'dockerstats_cpu_usage_ratio{{name="{container}"}}'
+  cap_vps_cpu: '100 - (avg(rate(node_cpu_seconds_total{{mode="idle"}}[5m])) * 100)'
+  cap_vps_mem: '(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100'
+  cap_vps_disk: '(1 - (node_filesystem_avail_bytes{{mountpoint="/"}} / node_filesystem_size_bytes{{mountpoint="/"}})) * 100'
+  cap_container_cpu: 'dockerstats_cpu_usage_ratio{{name="{container}"}}'
+  cap_container_mem: 'dockerstats_memory_usage_ratio{{name="{container}"}}'

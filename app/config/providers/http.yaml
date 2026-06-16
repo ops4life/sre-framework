@@ -1,0 +1,13 @@
+# Generic HTTP provider preset (vendor-neutral RED metrics).
+# Works with any app that exposes Prometheus metrics matching the OpenMetrics
+# conventions: http_requests_total (labels: service, code) and
+# http_request_duration_seconds_bucket (label: service).
+# Container/VPS capacity keys are omitted → those panels render null gracefully.
+# Placeholders: {service}, {window}
+name: http
+latency_unit: seconds
+queries:
+  availability: 'avg_over_time(up{{job="{service}"}}[{window}]) * 100'
+  request_rate: 'sum(rate(http_requests_total{{service="{service}"}}[5m]))'
+  latency_p99: 'histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket{{service="{service}"}}[5m])) by (le))'
+  error_rate: 'sum(rate(http_requests_total{{service="{service}", code=~"5.."}}[5m])) / sum(rate(http_requests_total{{service="{service}"}}[5m])) * 100'

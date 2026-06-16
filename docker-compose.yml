@@ -1,0 +1,32 @@
+---
+networks:
+  traefik-net:
+    external: true
+
+services:
+  sre:
+    build: .
+    image: ops4life/sre:${IMAGE_TAG:-latest}
+    container_name: ${COMPOSE_PROJECT_NAME:-sre}
+    restart: unless-stopped
+    networks:
+      - traefik-net
+    env_file:
+      - .env
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_PROJECT_NAME}.${TRAEFIK_HOST}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=authentik@docker
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8000

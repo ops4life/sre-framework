@@ -1,0 +1,36 @@
+# SRE Framework — standalone demo (no Traefik, no Authentik required).
+# Usage: docker compose -f demo/docker-compose.yml up --build
+# Dashboard: http://localhost:8080
+
+services:
+  metrics-generator:
+    build: ./metrics-generator
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=7d"
+
+  sre:
+    build: ..
+    restart: unless-stopped
+    ports:
+      - "8080:8000"
+    environment:
+      PROMETHEUS_URL: http://prometheus:9090
+      SRE_CONFIG_FILE: /app/demo/sre.demo.yaml
+    volumes:
+      - ./sre.demo.yaml:/app/demo/sre.demo.yaml:ro
+    depends_on:
+      - prometheus
+      - metrics-generator
+
+volumes:
+  prometheus_data:
