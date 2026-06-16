@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.svg" alt="SRE Framework Banner" width="800">
+</p>
+
 # SRE Framework
 
 An open-source SRE Ops dashboard that helps teams apply Site Reliability Engineering practices. Config-driven, Prometheus-native, ships with a zero-infra demo stack.
