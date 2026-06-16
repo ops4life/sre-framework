@@ -27,7 +27,9 @@ website/
 ├── static/
 │   └── img/
 │       ├── banner.svg           # copied from assets/banner.svg
-│       └── favicon.png          # copied from frontend/public/favicon.png
+│       ├── favicon.svg          # copied from frontend/public/favicon.svg
+│       ├── favicon-light.svg    # copied from frontend/public/favicon-light.svg
+│       └── favicon-dark.svg     # copied from frontend/public/favicon-dark.svg
 ├── src/
 │   ├── pages/
 │   │   └── index.tsx            # custom landing page
