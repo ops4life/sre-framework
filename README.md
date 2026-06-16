@@ -8,9 +8,20 @@ An open-source SRE Ops dashboard that helps teams apply Site Reliability Enginee
 
 **MIT License · FastAPI + React + Vite · Docker Compose**
 
+[![CI](https://github.com/ops4life/sre-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/ops4life/sre-framework/actions/workflows/ci.yml)
+[![Docker](https://img.shields.io/docker/v/ops4life/sre-framework/latest)](https://hub.docker.com/r/ops4life/sre-framework)
+
 ---
 
 ## Quickstart (zero infra required)
+
+**From DockerHub (no build needed):**
+
+```bash
+docker run -p 8000:8000 ops4life/sre-framework:latest
+```
+
+**From source:**
 
 ```bash
 git clone https://github.com/ops4life/sre-framework
@@ -155,12 +166,32 @@ Then set `provider: mystack` in `sre.yaml`.
 
 ---
 
-## Running tests
+## CI / Docker image
+
+Every push to `main` runs the full CI pipeline and publishes a new image to DockerHub:
+
+```
+ops4life/sre-framework:latest   # always tracks main
+ops4life/sre-framework:<sha>    # pinned to commit
+```
+
+**Pipeline stages:**
+1. Python tests — `pytest tests/`
+2. Frontend — `tsc -b && vite build`
+3. Docker build + push (amd64 + arm64) — main branch only
+
+## Running tests locally
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements-dev.txt
-pytest
+pip install -r requirements.txt -r requirements-dev.txt
+pytest tests/ -v
+```
+
+Frontend:
+
+```bash
+cd frontend && pnpm install && pnpm run build
 ```
 
 ---
