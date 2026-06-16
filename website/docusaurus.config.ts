@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'SRE Framework',
   tagline: 'Config-driven SRE dashboard. Prometheus-native. Zero-infra demo.',
-  favicon: 'img/favicon.png',
+  favicon: 'img/favicon.svg',
 
   url: 'https://ops4life.github.io',
   baseUrl: '/sre-framework/',
@@ -48,7 +48,8 @@ const config: Config = {
       title: 'SRE Framework',
       logo: {
         alt: 'SRE Framework Logo',
-        src: 'img/favicon.png',
+        src: 'img/favicon-light.svg',
+        srcDark: 'img/favicon-dark.svg',
       },
       items: [
         {
