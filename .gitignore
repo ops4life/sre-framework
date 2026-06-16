@@ -23,7 +23,6 @@ frontend/dist/
 
 # Claude
 .claude/
-CLAUDE.md
 
 # OS
 .DS_Store
