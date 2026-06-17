@@ -120,7 +120,7 @@ Injected at serve time — no rebuild required.
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `SRE_TITLE` | `SRE Ops — Mission Control` | Browser tab title and dashboard heading |
-| `SRE_TIMEZONE` | `UTC` | Clock display timezone — any IANA string (e.g. `America/New_York`) |
+| `SRE_TIMEZONE` | `UTC` | Clock display timezone — any IANA string (e.g. `America/New_York`). Run `timedatectl list-timezones` or see [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
 | `SRE_WINDOW` | `28d` | SLO and error budget evaluation window — day format only (e.g. `7d`, `30d`) |
 | `SRE_FAVICON` | `/favicon.png` | URL to a custom favicon |
 

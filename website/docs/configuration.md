@@ -89,7 +89,7 @@ These are injected at serve time — no rebuild required. Set them in `.env` or 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `SRE_TITLE` | `SRE Ops — Mission Control` | Browser tab title and dashboard heading |
-| `SRE_TIMEZONE` | `UTC` | Clock display timezone — any [IANA tz string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (e.g. `America/New_York`, `Europe/Berlin`) |
+| `SRE_TIMEZONE` | `UTC` | Clock display timezone — any [IANA tz string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (e.g. `America/New_York`, `Europe/Berlin`). Run `timedatectl list-timezones` to list all valid values |
 | `SRE_WINDOW` | `28d` | Prometheus evaluation window for SLO and error budget queries. Day format only (e.g. `7d`, `14d`, `30d`) |
 | `SRE_FAVICON` | `/favicon.png` | URL to a custom favicon |
 
