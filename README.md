@@ -104,12 +104,32 @@ Useful for engineers new to SRE, or for walkthroughs with stakeholders.
 
 ## Environment variables
 
+### Infrastructure
+
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `PROMETHEUS_URL` | `http://prometheus:9090` | Prometheus API endpoint |
 | `SRE_CONFIG_FILE` | `app/config/sre.yaml` | Path to main config (mount your own without rebuilding) |
 | `TRAEFIK_HOST` | _(ops4life-only)_ | Domain for Traefik TLS routing |
 | `COMPOSE_PROJECT_NAME` | `sre` | Docker Compose project name |
+
+### UI customization
+
+Injected at serve time — no rebuild required.
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SRE_TITLE` | `SRE Ops — Mission Control` | Browser tab title and dashboard heading |
+| `SRE_TIMEZONE` | `UTC` | Clock display timezone — any IANA string (e.g. `America/New_York`) |
+| `SRE_WINDOW` | `28d` | SLO and error budget evaluation window — day format only (e.g. `7d`, `30d`) |
+| `SRE_FAVICON` | `/favicon.png` | URL to a custom favicon |
+
+```bash
+# .env example
+SRE_TITLE=Acme SRE Dashboard
+SRE_TIMEZONE=America/Chicago
+SRE_WINDOW=30d
+```
 
 ---
 
