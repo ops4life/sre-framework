@@ -20,6 +20,7 @@ htmlcov/
 # Node
 node_modules/
 frontend/dist/
+frontend/coverage/
 frontend/.env.local
 website/build/
 website/.docusaurus/
