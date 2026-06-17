@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1](https://github.com/ops4life/sre-framework/compare/v1.6.0...v1.6.1) (2026-06-17)
+
+
+### Bug Fixes
+
+* **ui:** remove service name from KPI strip labels ([3b65971](https://github.com/ops4life/sre-framework/commit/3b65971b23a5a4c3d5f5edd60a3d94e40cd25014))
+
 # [1.6.0](https://github.com/ops4life/sre-framework/compare/v1.5.0...v1.6.0) (2026-06-17)
 
 
