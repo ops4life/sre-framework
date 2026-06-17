@@ -9,4 +9,11 @@ export default defineConfig({
       '/api': 'http://localhost:8000',
     },
   },
+  test: {
+    coverage: {
+      provider: 'v8',
+      reporter: ['lcov'],
+      reportsDirectory: 'coverage',
+    },
+  },
 });

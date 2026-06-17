@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:coverage": "vitest run --coverage --passWithNoTests"
   },
   "dependencies": {
     "react": "^19.2.7",
@@ -19,6 +20,8 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "typescript": "~6.0.2",
-    "vite": "^8.0.16"
+    "vite": "^8.0.16",
+    "vitest": "^3.0.0",
+    "@vitest/coverage-v8": "^3.0.0"
   }
 }
