@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1](https://github.com/ops4life/sre-framework/compare/v1.1.0...v1.1.1) (2026-06-17)
+
+
+### Bug Fixes
+
+* use vitest/config for vite types, mock FileResponse in SPA fallback test ([de7d45e](https://github.com/ops4life/sre-framework/commit/de7d45e7be7942ebaa2ee255109358f8a7321ecf))
+
 # [1.1.0](https://github.com/ops4life/sre-framework/compare/v1.0.0...v1.1.0) (2026-06-17)
 
 
