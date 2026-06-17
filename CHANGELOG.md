@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.2.0](https://github.com/ops4life/sre-framework/compare/v1.1.2...v1.2.0) (2026-06-17)
+
+
+### Features
+
+* runtime env-var customization for title, timezone, window, favicon ([452970e](https://github.com/ops4life/sre-framework/commit/452970eefa242c405e6ffe59db66214582f085d4))
+
 ## [1.1.2](https://github.com/ops4life/sre-framework/compare/v1.1.1...v1.1.2) (2026-06-17)
 
 
