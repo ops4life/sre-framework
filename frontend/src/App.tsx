@@ -94,7 +94,7 @@ export default function App() {
           onToggleLearn={() => setLearnMode(v => !v)}
         />
 
-        <div className="slide-up" style={{ marginTop: 20 }}>
+        <div className="slide-up" style={{ marginTop: 20, flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div className="sre-dashboard-layout">
             {/* Left Column (Wide) - main diagnostics */}
             <div className="sre-dashboard-main">

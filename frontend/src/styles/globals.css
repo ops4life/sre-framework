@@ -50,6 +50,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
   background: var(--surface);
   /* Elegant grid canvas background pattern matching demo.jpg */
   background-image: linear-gradient(var(--border) 1px, transparent 1px),
@@ -57,7 +58,6 @@ html, body {
   background-size: 36px 36px;
   color: var(--text);
   font-family: var(--sans);
-  min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -67,21 +67,21 @@ html, body {
 }
 
 .page {
-  padding: 40px 48px 80px;
-  max-width: 1320px;
+  padding: 28px 40px 40px;
   width: 100%;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 1024px) {
   .page {
-    padding: 32px 32px 80px;
+    padding: 24px 28px 32px;
   }
 }
 
 @media (max-width: 720px) {
   .page {
-    padding: 20px 16px 60px;
+    padding: 16px 16px 32px;
   }
 }
 
@@ -299,12 +299,15 @@ html, body {
 /* Layout Shell */
 .sre-layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .sre-layout .page {
   flex: 1;
   min-width: 0;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .sre-sidebar {
@@ -464,9 +467,6 @@ html, body {
   .sre-hide-mobile {
     display: none !important;
   }
-  .page {
-    padding: 20px 16px 60px;
-  }
   .sre-panel {
     padding: 20px 16px;
     border-radius: var(--radius-md);
@@ -479,6 +479,8 @@ html, body {
   grid-template-columns: 1.6fr 1fr;
   gap: 24px;
   align-items: start;
+  flex: 1;
+  min-height: 0;
 }
 
 .sre-dashboard-main {
@@ -491,10 +493,15 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: sticky;
+  top: 0;
 }
 
 @media (max-width: 1024px) {
   .sre-dashboard-layout {
     grid-template-columns: 1fr;
+  }
+  .sre-dashboard-aside {
+    position: static;
   }
 }
