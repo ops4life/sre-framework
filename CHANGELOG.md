@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.6.0](https://github.com/ops4life/sre-framework/compare/v1.5.0...v1.6.0) (2026-06-17)
+
+
+### Features
+
+* **ui:** persist selected service across refreshes ([d26e055](https://github.com/ops4life/sre-framework/commit/d26e055833aee8948e7f739f90e3b67f7a597238))
+
 # [1.5.0](https://github.com/ops4life/sre-framework/compare/v1.4.1...v1.5.0) (2026-06-17)
 
 
