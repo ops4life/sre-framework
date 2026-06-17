@@ -1,5 +1,5 @@
 import os
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, mock_open, patch
 
 import pytest
 from fastapi.testclient import TestClient
@@ -68,8 +68,10 @@ class TestSpa:
         def isfile(path):
             return path == "frontend/dist/index.html"
 
+        stub_html = "<html><head></head><body></body></html>"
         with patch("app.main.os.path.isfile", side_effect=isfile), \
              patch("app.main.os.path.join", return_value="/nonexistent/app.js"), \
-             patch("app.main.FileResponse", return_value=JR({"served": "index"})):
+             patch("app.main.FileResponse", return_value=JR({"served": "index"})), \
+             patch("builtins.open", mock_open(read_data=stub_html)):
             resp = client.get("/app.js")
         assert resp.status_code == 200
