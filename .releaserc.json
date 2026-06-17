@@ -22,10 +22,18 @@
       }
     ],
     [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false,
+        "pkgRoot": "frontend"
+      }
+    ],
+    [
       "@semantic-release/git",
       {
         "assets": [
-          "CHANGELOG.md"
+          "CHANGELOG.md",
+          "frontend/package.json"
         ],
         "message": "chore(release): version ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
