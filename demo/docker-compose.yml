@@ -36,6 +36,10 @@ services:
     environment:
       PROMETHEUS_URL: http://prometheus:9090
       SRE_CONFIG_FILE: /app/demo/sre.demo.yaml
+      SRE_TITLE: SRE Ops — Mission Control
+      SRE_TIMEZONE: UTC
+      SRE_WINDOW: 28d
+      # SRE_FAVICON: /favicon.png
     volumes:
       - ./sre.demo.yaml:/app/demo/sre.demo.yaml:ro
     depends_on:
