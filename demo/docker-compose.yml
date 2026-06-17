@@ -1,15 +1,24 @@
-# SRE Framework — standalone demo (no Traefik, no Authentik required).
+# SRE Framework — standalone demo (no Authentik required).
 # Usage: docker compose -f demo/docker-compose.yml up --build
-# Dashboard: http://localhost:8080
+# Dashboard: https://sre-demo.ops4life.com
+
+networks:
+  traefik-net:
+    external: true
+  demo-internal:
 
 services:
   metrics-generator:
     build: ./metrics-generator
     restart: unless-stopped
+    networks:
+      - demo-internal
 
   prometheus:
     image: prom/prometheus:latest
     restart: unless-stopped
+    networks:
+      - demo-internal
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
@@ -21,8 +30,9 @@ services:
   sre:
     build: ..
     restart: unless-stopped
-    ports:
-      - "8080:8000"
+    networks:
+      - traefik-net
+      - demo-internal
     environment:
       PROMETHEUS_URL: http://prometheus:9090
       SRE_CONFIG_FILE: /app/demo/sre.demo.yaml
@@ -31,6 +41,12 @@ services:
     depends_on:
       - prometheus
       - metrics-generator
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sre-demo.rule=Host(`sre-demo.ops4life.com`)
+      - traefik.http.routers.sre-demo.entrypoints=websecure
+      - traefik.http.routers.sre-demo.tls.certresolver=letsencrypt
+      - traefik.http.services.sre-demo.loadbalancer.server.port=8000
 
 volumes:
   prometheus_data:

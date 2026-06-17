@@ -58,12 +58,9 @@ export default function KpiStrip({ kpis, sloCount, allHealthy, learnMode }: Prop
               marginTop: 10,
               fontSize: 11,
               color: 'var(--muted)',
-              fontWeight: 500,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4
+              fontWeight: 500
             }}>
-              <span style={{ color: 'var(--accent)' }}>✦</span> {k.sub}
+              {k.sub}
             </div>
           )}
         </div>

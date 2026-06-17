@@ -23,11 +23,13 @@ export default function ErrorBudgetBurn({ burn, selectedService, learnMode }: Pr
   const burnPolicy = (burn.burn_rate_6h ?? 0) > 2 ? 'Deploy freeze' : 'Deploys allowed';
 
   return (
-    <div className="sre-panel" style={{ marginBottom: 24 }}>
+    <div className="sre-panel">
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
         <div>
           <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' }}>
-            Error Budget<InfoTip conceptId="error_budget" learnMode={learnMode} /> Burn<InfoTip conceptId="burn_rate" learnMode={learnMode} /> — {selectedService}
+            Error Budget Burn — {selectedService}
+            <InfoTip conceptId="error_budget" learnMode={learnMode} />
+            <InfoTip conceptId="burn_rate" learnMode={learnMode} />
           </h2>
           <p style={{ margin: '6px 0 0', fontSize: 12, color: 'var(--muted)' }}>
             {burn.target}% target · {burn.budget_pct.toFixed(2)}% budget / 28d

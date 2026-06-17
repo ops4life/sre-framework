@@ -1,6 +1,5 @@
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
-const RED = 'var(--danger)';
 
 interface Props {
   allHealthy: boolean;
@@ -11,13 +10,33 @@ interface Props {
   onToggleLearn: () => void;
 }
 
+function IconCalendar() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="1" y="2.5" width="10" height="8.5" rx="1.5" />
+      <line x1="1" y1="5.5" x2="11" y2="5.5" />
+      <line x1="4" y1="1" x2="4" y2="3.5" />
+      <line x1="8" y1="1" x2="8" y2="3.5" />
+    </svg>
+  );
+}
+
+function IconClock() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="6" cy="6" r="4.5" />
+      <polyline points="6,3.5 6,6 7.5,7.5" />
+    </svg>
+  );
+}
+
 export default function TopBar({ allHealthy, error, clock, selectedService, learnMode, onToggleLearn }: Props) {
   const today = new Date();
   const dateStr = today.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
 
   return (
     <div style={{ marginBottom: 36 }}>
-      {/* Top Utility Bar */}
+      {/* Utility bar */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -28,50 +47,48 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
         marginBottom: 28,
         flexWrap: 'wrap'
       }}>
-        {/* Left: Status and service capsule */}
+        {/* Left: status + active service */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          {/* Status Capsule */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            padding: '8px 16px',
+            padding: '7px 14px',
             border: '1px solid var(--border)',
             borderRadius: 'var(--radius-pill)',
             background: 'var(--bg)',
             boxShadow: 'var(--shadow)'
           }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: allHealthy ? GREEN : AMBER }} />
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: allHealthy ? GREEN : AMBER, flexShrink: 0 }} />
             <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-2)' }}>
               {allHealthy ? 'All systems operational' : 'Degraded SLO attainment'}
             </span>
           </div>
 
-          {/* Active Service Capsule */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
             gap: 6,
-            padding: '8px 16px',
+            padding: '7px 14px',
             border: '1px solid var(--border)',
             borderRadius: 'var(--radius-pill)',
             background: 'var(--bg)',
             boxShadow: 'var(--shadow)'
           }}>
-            <span style={{ fontSize: 11, fontFamily: 'var(--mono)', color: 'var(--muted)' }}>SVC //</span>
+            <span style={{ fontSize: 11, fontFamily: 'var(--mono)', color: 'var(--muted)' }}>SVC</span>
+            <span style={{ fontSize: 11, fontFamily: 'var(--mono)', color: 'var(--muted)' }}>/</span>
             <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)' }}>{selectedService}</span>
           </div>
 
           {error && (
-            <div style={{ fontSize: 11, color: RED, fontFamily: 'var(--mono)', padding: '4px 10px', background: 'rgba(239,68,68,0.1)', borderRadius: 6 }}>
-              ERR: {error}
+            <div style={{ fontSize: 11, color: 'var(--danger)', fontFamily: 'var(--mono)', padding: '4px 10px', background: 'rgba(239,68,68,0.08)', borderRadius: 6, border: '1px solid rgba(239,68,68,0.2)' }}>
+              {error}
             </div>
           )}
         </div>
 
-        {/* Right: Learn toggle + Date/Clock */}
+        {/* Right: learn toggle + date/clock */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          {/* Learn Mode Toggle */}
           <button
             onClick={onToggleLearn}
             title="Toggle Learn Mode — shows concept explanations on each panel"
@@ -79,7 +96,7 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
               display: 'flex',
               alignItems: 'center',
               gap: 6,
-              padding: '8px 14px',
+              padding: '7px 14px',
               border: learnMode ? '1px solid var(--accent)' : '1px solid var(--border)',
               borderRadius: 'var(--radius-pill)',
               background: learnMode ? 'var(--accent-tint)' : 'var(--bg)',
@@ -92,65 +109,63 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
               transition: 'var(--transition)',
             }}
           >
-            <span>?</span>
+            <span style={{ fontSize: 13, lineHeight: 1 }}>?</span>
             <span>{learnMode ? 'Learn ON' : 'Learn'}</span>
           </button>
 
-          {/* Greeting */}
-          <div className="sre-hide-mobile" style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--text)' }}>
-              Hi Operator, <span style={{ color: 'var(--muted)' }}>Welcome to SRE Ops</span>
-            </div>
-          </div>
-
-          {/* Date & Clock Capsule */}
-          <div style={{
+          <div className="sre-hide-mobile" style={{
             display: 'flex',
             alignItems: 'center',
             gap: 12,
-            padding: '8px 18px',
+            padding: '7px 16px',
             border: '1px solid var(--border)',
             borderRadius: 'var(--radius-pill)',
             background: 'var(--bg)',
             boxShadow: 'var(--shadow)',
             fontFamily: 'var(--mono)'
           }}>
-            <span style={{ fontSize: 12, color: 'var(--muted)' }}>📅 {dateStr}</span>
-            <span style={{ width: 1, height: 12, background: 'var(--border)' }} />
-            <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text)' }}>⏰ {clock}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--muted)' }}>
+              <IconCalendar />
+              {dateStr}
+            </span>
+            <span style={{ width: 1, height: 12, background: 'var(--border)', flexShrink: 0 }} />
+            <span style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: 'var(--text)' }}>
+              <IconClock />
+              {clock}
+            </span>
+          </div>
+          <div className="sre-show-mobile-only" style={{
+            display: 'none',
+            alignItems: 'center',
+            gap: 5,
+            padding: '7px 12px',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-pill)',
+            background: 'var(--bg)',
+            fontFamily: 'var(--mono)',
+            fontSize: 12,
+            fontWeight: 600,
+            color: 'var(--text)'
+          }}>
+            <IconClock />
+            {clock}
           </div>
         </div>
       </div>
 
-      {/* Title section */}
+      {/* Title row */}
       <div style={{
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
-        gap: 20,
+        gap: 16,
         flexWrap: 'wrap'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div>
-            <h1 className="page-title">SRE Ops Mission Control</h1>
-            <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--muted)' }}>
-              Live metrics, SLOs, golden signals, capacity, and error budget diagnostics.
-            </p>
-          </div>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: '50%',
-            background: 'var(--accent)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#0b0d0c',
-            fontWeight: 800,
-            fontSize: 18,
-            boxShadow: '0 4px 10px rgba(202, 255, 4, 0.3)',
-            flexShrink: 0
-          }}>*</div>
+        <div>
+          <h1 className="page-title">SRE Ops Mission Control</h1>
+          <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--muted)' }}>
+            Live metrics, SLOs, golden signals, capacity, and error budget diagnostics.
+          </p>
         </div>
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -158,34 +173,23 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
             fontSize: 11,
             fontWeight: 600,
             color: 'var(--text-2)',
-            padding: '8px 14px',
+            padding: '7px 13px',
             background: 'var(--surface-2)',
             border: '1px solid var(--border)',
             borderRadius: 'var(--radius-pill)'
           }}>
-            🗓 28-day window
+            28-day window
           </div>
           <div style={{
             fontSize: 11,
             fontWeight: 600,
             color: 'var(--text-2)',
-            padding: '8px 14px',
+            padding: '7px 13px',
             background: 'var(--surface-2)',
             border: '1px solid var(--border)',
             borderRadius: 'var(--radius-pill)'
           }}>
-            ⚡ Live (5m)
-          </div>
-          <div style={{
-            fontSize: 11,
-            fontWeight: 600,
-            color: '#0b0d0c',
-            padding: '8px 14px',
-            background: 'var(--accent)',
-            borderRadius: 'var(--radius-pill)',
-            boxShadow: '0 4px 12px rgba(202, 255, 4, 0.2)'
-          }}>
-            Active
+            Live · 5m resolution
           </div>
         </div>
       </div>

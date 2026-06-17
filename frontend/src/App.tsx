@@ -51,10 +51,28 @@ export default function App() {
       <div className="sre-layout">
         <Sidebar services={services} selected={selectedService} onSelect={setSelectedService} theme={theme} onToggleTheme={toggleTheme} />
         <main className="page">
-          <div className="page-head">
-            <h1 className="page-title">SRE Ops<br /><span className="accent">Mission Control.</span></h1>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: 16 }}>
+            {error ? (
+              <>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="var(--danger)" strokeWidth="1.75" strokeLinecap="round">
+                    <circle cx="9" cy="9" r="7.5" />
+                    <line x1="9" y1="5.5" x2="9" y2="9.5" />
+                    <line x1="9" y1="12" x2="9" y2="12.5" />
+                  </svg>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text)', marginBottom: 4 }}>Failed to connect</div>
+                  <div style={{ ...monoMuted, fontSize: 12 }}>{error}</div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ width: 28, height: 28, borderRadius: '50%', border: '2.5px solid var(--accent)', borderTopColor: 'transparent', animation: 'spin 0.75s linear infinite' }} />
+                <span style={{ ...monoMuted, fontSize: 12 }}>Connecting to Prometheus…</span>
+              </>
+            )}
           </div>
-          <p style={monoMuted}>{error ? `Error loading metrics: ${error}` : 'Loading…'}</p>
         </main>
       </div>
     );
@@ -76,7 +94,7 @@ export default function App() {
           onToggleLearn={() => setLearnMode(v => !v)}
         />
 
-        <div className="slide-up" style={{ maxWidth: 1320, margin: '0 auto', marginTop: 20 }}>
+        <div className="slide-up" style={{ marginTop: 20 }}>
           <div className="sre-dashboard-layout">
             {/* Left Column (Wide) - main diagnostics */}
             <div className="sre-dashboard-main">
