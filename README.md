@@ -10,6 +10,9 @@ An open-source SRE Ops dashboard that helps teams apply Site Reliability Enginee
 
 [![CI](https://github.com/ops4life/sre-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/ops4life/sre-framework/actions/workflows/ci.yml)
 [![Docker](https://img.shields.io/docker/v/ops4life/sre-framework/latest)](https://hub.docker.com/r/ops4life/sre-framework)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ops4life_sre-framework&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ops4life_sre-framework)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ops4life_sre-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ops4life_sre-framework)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ops4life_sre-framework&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ops4life_sre-framework)
 
 ---
 
