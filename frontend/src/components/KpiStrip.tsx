@@ -18,9 +18,9 @@ export default function KpiStrip({ kpis, sloCount, allHealthy, learnMode }: Prop
   const cards = [
     { label: 'Composite SLO', value: fmt(kpis.composite_slo, 2), unit: '%', dot: allHealthy ? GREEN : AMBER, sub: `${sloCount} services`, tip: 'composite_slo' },
     { label: 'Error budget', value: fmt(kpis.error_budget_remaining_pct, 1), unit: '%', dot: (kpis.error_budget_remaining_pct ?? 100) < 20 ? RED : GREEN, sub: 'remaining', tip: 'error_budget' },
-    { label: `Req rate (${kpis.selected_service})`, value: fmt(kpis.selected_request_rate, 2), unit: '/s', dot: BLUE, sub: 'requests', tip: 'traffic' },
-    { label: `p99 latency (${kpis.selected_service})`, value: fmt(kpis.selected_latency_p99_ms, 0), unit: 'ms', dot: (kpis.selected_latency_p99_ms ?? 0) > 500 ? AMBER : GREEN, sub: 'response', tip: 'latency' },
-    { label: `Error rate (${kpis.selected_service})`, value: fmt(kpis.selected_error_rate_pct, 2), unit: '%', dot: kpis.selected_error_rate_pct > 1 ? RED : GREEN, sub: '5xx errors', tip: 'errors' },
+    { label: 'Req rate', value: fmt(kpis.selected_request_rate, 2), unit: '/s', dot: BLUE, sub: 'requests', tip: 'traffic' },
+    { label: 'p99 latency', value: fmt(kpis.selected_latency_p99_ms, 0), unit: 'ms', dot: (kpis.selected_latency_p99_ms ?? 0) > 500 ? AMBER : GREEN, sub: 'response', tip: 'latency' },
+    { label: 'Error rate', value: fmt(kpis.selected_error_rate_pct, 2), unit: '%', dot: kpis.selected_error_rate_pct > 1 ? RED : GREEN, sub: '5xx errors', tip: 'errors' },
   ];
 
   return (
