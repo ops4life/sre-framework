@@ -22,6 +22,7 @@ export default function App() {
   const [selectedService, setSelectedService] = useState('devex');
   const [theme, toggleTheme] = useTheme();
   const [learnMode, setLearnMode] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     const clockId = setInterval(() => setClock(fmtClock(config.timezone)), 1000);
@@ -49,8 +50,8 @@ export default function App() {
 
   if (!data) {
     return (
-      <div className="sre-layout">
-        <Sidebar services={services} selected={selectedService} onSelect={setSelectedService} theme={theme} onToggleTheme={toggleTheme} />
+      <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
+        <Sidebar services={services} selected={selectedService} onSelect={setSelectedService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} />
         <main className="page">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: 16 }}>
             {error ? (
@@ -83,8 +84,8 @@ export default function App() {
   const allHealthy = slo_table.length > 0 && slo_table.every(r => r.sli !== null && r.sli >= r.slo_target);
 
   return (
-    <div className="sre-layout">
-      <Sidebar services={services} selected={selectedService} onSelect={setSelectedService} theme={theme} onToggleTheme={toggleTheme} />
+    <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
+      <Sidebar services={services} selected={selectedService} onSelect={setSelectedService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} />
       <main className="page">
         <TopBar
           allHealthy={allHealthy}
