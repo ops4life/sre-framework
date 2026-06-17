@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.4.0](https://github.com/ops4life/sre-framework/compare/v1.3.0...v1.4.0) (2026-06-17)
+
+
+### Features
+
+* responsive nav with mobile drawer ([1b754ea](https://github.com/ops4life/sre-framework/commit/1b754ea91cadedc666b53df343b337276a96ada0))
+
 # [1.3.0](https://github.com/ops4life/sre-framework/compare/v1.2.0...v1.3.0) (2026-06-17)
 
 
