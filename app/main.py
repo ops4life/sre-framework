@@ -1,12 +1,20 @@
+import json
 import os
 
 from fastapi import FastAPI
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from . import metrics
 
 app = FastAPI()
+
+_SRE_CONFIG = {
+    "title": os.getenv("SRE_TITLE", "SRE Ops — Mission Control"),
+    "timezone": os.getenv("SRE_TIMEZONE", "UTC"),
+    "window": os.getenv("SRE_WINDOW", "28d"),
+    "favicon": os.getenv("SRE_FAVICON", "/favicon.png"),
+}
 
 if os.path.isdir("frontend/dist/assets"):
     app.mount("/assets", StaticFiles(directory="frontend/dist/assets"), name="frontend-assets")
@@ -30,5 +38,9 @@ async def spa(full_path: str):
             return FileResponse(file_path)
     dist_index = "frontend/dist/index.html"
     if os.path.isfile(dist_index):
-        return FileResponse(dist_index)
+        with open(dist_index) as f:
+            html = f.read()
+        script = f"<script>window.__SRE_CONFIG__={json.dumps(_SRE_CONFIG)};</script>"
+        html = html.replace("</head>", f"{script}</head>", 1)
+        return HTMLResponse(html)
     return JSONResponse({"detail": "not found"}, status_code=404)

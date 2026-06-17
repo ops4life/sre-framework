@@ -1,7 +1,15 @@
+import os
 import time
 
 from . import config_loader as cfg
 from . import prometheus as prom
+
+
+def _window() -> tuple[int, str]:
+    raw = os.getenv("SRE_WINDOW", "28d")
+    if not raw.endswith("d") or not raw[:-1].isdigit():
+        raise ValueError(f"SRE_WINDOW must be day format like '28d', got: {raw!r}")
+    return int(raw[:-1]), raw
 
 
 def _scalar(result: list[dict]) -> float | None:
@@ -54,7 +62,7 @@ async def get_slo_table() -> list[dict]:
     rows = []
     for svc in cfg.load_config()["services"]:
         labels = svc["labels"]
-        sli = await _availability(labels, "28d")
+        sli = await _availability(labels, _window()[1])
         rows.append({
             "name": svc["name"],
             "slo_target": svc["slo_target"],
@@ -105,7 +113,8 @@ async def get_error_budget_burn(svc: dict) -> dict:
     budget = 100 - target
 
     now = time.time()
-    curve = await _query_series("availability", labels, now - 28 * 86400, now, "1d", window="1d")
+    win_days, win_label = _window()
+    curve = await _query_series("availability", labels, now - win_days * 86400, now, "1d", window=win_label)
 
     remaining_pct = None
     if curve and budget > 0:

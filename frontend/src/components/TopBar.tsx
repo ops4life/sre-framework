@@ -1,3 +1,5 @@
+import { config } from '../lib/config';
+
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
 
@@ -8,6 +10,7 @@ interface Props {
   selectedService: string;
   learnMode: boolean;
   onToggleLearn: () => void;
+  metricWindow: string;
 }
 
 function IconCalendar() {
@@ -30,9 +33,10 @@ function IconClock() {
   );
 }
 
-export default function TopBar({ allHealthy, error, clock, selectedService, learnMode, onToggleLearn }: Props) {
+export default function TopBar({ allHealthy, error, clock, selectedService, learnMode, onToggleLearn, metricWindow }: Props) {
   const today = new Date();
   const dateStr = today.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
+  const windowLabel = metricWindow.endsWith('d') ? `${metricWindow.slice(0, -1)}-day window` : metricWindow;
 
   return (
     <div style={{ marginBottom: 36 }}>
@@ -162,7 +166,7 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
         flexWrap: 'wrap'
       }}>
         <div>
-          <h1 className="page-title">SRE Ops Mission Control</h1>
+          <h1 className="page-title">{config.title}</h1>
           <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--muted)' }}>
             Live metrics, SLOs, golden signals, capacity, and error budget diagnostics.
           </p>
@@ -178,7 +182,7 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
             border: '1px solid var(--border)',
             borderRadius: 'var(--radius-pill)'
           }}>
-            28-day window
+            {windowLabel}
           </div>
           <div style={{
             fontSize: 11,

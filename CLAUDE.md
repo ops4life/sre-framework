@@ -51,6 +51,20 @@ The frontend polls every 20 seconds. All metric queries are config-driven — no
 
 `sre.yaml` → picks a provider preset → preset queries are merged with user `queries:` overrides (user wins). `render(key, labels)` returns `None` if the key doesn't exist, which propagates as `null` in the JSON response and `null` in the React types. Components handle `null` gracefully.
 
+### UI customization env vars
+
+Set in `.env` or Docker environment. No rebuild needed — values are injected into `index.html` at serve time via `window.__SRE_CONFIG__`.
+
+| Var | Default | Effect |
+|---|---|---|
+| `SRE_TITLE` | `SRE Ops — Mission Control` | Browser `<title>` and dashboard H1 |
+| `SRE_TIMEZONE` | `UTC` | Clock display (IANA string, e.g. `America/New_York`) |
+| `SRE_WINDOW` | `28d` | Prometheus evaluation window; day format only (e.g. `7d`, `30d`) |
+| `SRE_FAVICON` | `/favicon.png` | Override favicon URL |
+
+- **`lib/config.ts`** — reads `window.__SRE_CONFIG__` with defaults fallback; imported by `App.tsx`, `TopBar.tsx`, `main.tsx`.
+- `SRE_WINDOW` is also read by `metrics.py` (`_window()`) for Prometheus query construction.
+
 ### CI
 
 `.github/workflows/ci.yml` runs on every push/PR:

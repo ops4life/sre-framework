@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Overview } from './types';
 import { fmtClock } from './lib/format';
+import { config } from './lib/config';
 import { useTheme } from './hooks/useTheme';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
@@ -16,14 +17,14 @@ const monoMuted: React.CSSProperties = { fontFamily: 'var(--mono)', fontSize: 11
 
 export default function App() {
   const [data, setData] = useState<Overview | null>(null);
-  const [clock, setClock] = useState(fmtClock());
+  const [clock, setClock] = useState(fmtClock(config.timezone));
   const [error, setError] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState('devex');
   const [theme, toggleTheme] = useTheme();
   const [learnMode, setLearnMode] = useState(false);
 
   useEffect(() => {
-    const clockId = setInterval(() => setClock(fmtClock()), 1000);
+    const clockId = setInterval(() => setClock(fmtClock(config.timezone)), 1000);
     return () => clearInterval(clockId);
   }, []);
 
@@ -92,6 +93,7 @@ export default function App() {
           selectedService={kpis.selected_service}
           learnMode={learnMode}
           onToggleLearn={() => setLearnMode(v => !v)}
+          metricWindow={config.window}
         />
 
         <div className="slide-up" style={{ marginTop: 20, flex: 1, display: 'flex', flexDirection: 'column' }}>

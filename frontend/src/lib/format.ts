@@ -15,10 +15,22 @@ export function area(values: number[], w: number, h: number, pad = 2): string {
   return `${line} L${w},${h} L0,${h} Z`;
 }
 
-export function fmtClock(): string {
-  const d = new Date();
-  const p = (n: number) => String(n).padStart(2, '0');
-  return `${p(d.getUTCHours())}:${p(d.getUTCMinutes())}:${p(d.getUTCSeconds())}`;
+export function fmtClock(timezone = 'UTC'): string {
+  try {
+    const parts = new Intl.DateTimeFormat('en-GB', {
+      timeZone: timezone,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }).formatToParts(new Date());
+    const get = (type: string) => parts.find(p => p.type === type)?.value ?? '00';
+    return `${get('hour')}:${get('minute')}:${get('second')}`;
+  } catch {
+    const d = new Date();
+    const p = (n: number) => String(n).padStart(2, '0');
+    return `${p(d.getUTCHours())}:${p(d.getUTCMinutes())}:${p(d.getUTCSeconds())}`;
+  }
 }
 
 export function fmt(value: number | null | undefined, digits = 1): string {
