@@ -19,7 +19,13 @@ export default function App() {
   const [data, setData] = useState<Overview | null>(null);
   const [clock, setClock] = useState(fmtClock(config.timezone));
   const [error, setError] = useState<string | null>(null);
-  const [selectedService, setSelectedService] = useState('devex');
+  const [selectedService, setSelectedService] = useState(
+    () => localStorage.getItem('sre.selectedService') ?? ''
+  );
+  const selectService = (name: string) => {
+    localStorage.setItem('sre.selectedService', name);
+    setSelectedService(name);
+  };
   const [theme, toggleTheme] = useTheme();
   const [learnMode, setLearnMode] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -34,10 +40,17 @@ export default function App() {
     let cancelled = false;
     const load = async () => {
       try {
-        const res = await fetch(`/api/sre/overview?service=${selectedService}`);
+        const url = selectedService ? `/api/sre/overview?service=${selectedService}` : '/api/sre/overview';
+        const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
-        if (!cancelled) { setData(json); setError(null); }
+        if (!cancelled) {
+          setData(json);
+          setError(null);
+          if (!selectedService && json.kpis?.selected_service) {
+            selectService(json.kpis.selected_service);
+          }
+        }
       } catch (err) {
         if (!cancelled) setError(err instanceof Error ? err.message : 'failed to load');
       }
@@ -47,12 +60,13 @@ export default function App() {
     return () => { cancelled = true; clearInterval(id); };
   }, [selectedService]);
 
-  const services = data?.slo_table.map(r => ({ name: r.name })) ?? [{ name: selectedService }];
+  const services = data?.slo_table.map(r => ({ name: r.name })) ?? (selectedService ? [{ name: selectedService }] : []);
+
 
   if (!data) {
     return (
       <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
-        <Sidebar services={services} selected={selectedService} onSelect={name => { setSelectedService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
+        <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
         <main className="page">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: 16 }}>
             {error ? (
@@ -86,7 +100,7 @@ export default function App() {
 
   return (
     <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
-      <Sidebar services={services} selected={selectedService} onSelect={name => { setSelectedService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
+      <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
       <main className="page">
         <TopBar
           onOpenMobileNav={() => setMobileSidebarOpen(true)}
