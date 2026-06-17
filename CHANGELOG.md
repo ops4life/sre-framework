@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.1.0](https://github.com/ops4life/sre-framework/compare/v1.0.0...v1.1.0) (2026-06-17)
+
+
+### Features
+
+* **ui:** make dashboard panels fill viewport and be responsive ([e49fe02](https://github.com/ops4life/sre-framework/commit/e49fe02259124cfbe547bd6ddaee903d99225b0c))
+
 # 1.0.0 (2026-06-17)
 
 
