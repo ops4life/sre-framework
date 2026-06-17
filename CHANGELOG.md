@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2](https://github.com/ops4life/sre-framework/compare/v1.1.1...v1.1.2) (2026-06-17)
+
+
+### Bug Fixes
+
+* move vitest coverage config to vitest.config.ts to avoid type conflict ([6146ee1](https://github.com/ops4life/sre-framework/commit/6146ee1bcd55a1f7b372502038cf09140ed0d250))
+
 ## [1.1.1](https://github.com/ops4life/sre-framework/compare/v1.1.0...v1.1.1) (2026-06-17)
 
 
