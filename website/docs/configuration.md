@@ -73,9 +73,31 @@ Then set `provider: mystack` in `sre.yaml`.
 
 ## Environment variables
 
+### Infrastructure
+
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `PROMETHEUS_URL` | `http://prometheus:9090` | Prometheus API endpoint |
 | `SRE_CONFIG_FILE` | `app/config/sre.yaml` | Path to main config |
 | `TRAEFIK_HOST` | _(unset)_ | Domain for Traefik TLS routing |
 | `COMPOSE_PROJECT_NAME` | `sre` | Docker Compose project name |
+
+### UI customization
+
+These are injected at serve time — no rebuild required. Set them in `.env` or your Docker environment.
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SRE_TITLE` | `SRE Ops — Mission Control` | Browser tab title and dashboard heading |
+| `SRE_TIMEZONE` | `UTC` | Clock display timezone — any [IANA tz string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (e.g. `America/New_York`, `Europe/Berlin`) |
+| `SRE_WINDOW` | `28d` | Prometheus evaluation window for SLO and error budget queries. Day format only (e.g. `7d`, `14d`, `30d`) |
+| `SRE_FAVICON` | `/favicon.png` | URL to a custom favicon |
+
+**Example `.env`:**
+
+```bash
+SRE_TITLE=Acme SRE Dashboard
+SRE_TIMEZONE=America/Chicago
+SRE_WINDOW=30d
+SRE_FAVICON=https://example.com/logo.png
+```
