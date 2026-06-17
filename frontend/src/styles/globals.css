@@ -569,6 +569,10 @@ html, body {
   .sre-sidebar.mobile-open {
     transform: translateX(0);
   }
+
+  .sre-sidebar-collapse {
+    display: none;
+  }
 }
 
 @media (max-width: 720px) {

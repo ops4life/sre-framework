@@ -59,6 +59,7 @@ function IconChevron({ collapsed }: { collapsed: boolean }) {
 }
 
 export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, mobileOpen, onMobileClose }: Props) {
+  const effectiveCollapsed = collapsed && !mobileOpen;
   return (
     <>
       {mobileOpen && <div className="sre-sidebar-backdrop" onClick={onMobileClose} aria-hidden />}
@@ -67,7 +68,7 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
         <div className="sre-sidebar-logo">
           <LogoMark />
         </div>
-        {!collapsed && <span className="sre-sidebar-brand-name">SRE Ops</span>}
+        {!effectiveCollapsed && <span className="sre-sidebar-brand-name">SRE Ops</span>}
         <button type="button" className="sre-sidebar-theme" title="Toggle theme" onClick={onToggleTheme}>
           {theme === 'dark' ? <IconSun /> : <IconMoon />}
         </button>
@@ -77,17 +78,17 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
       </div>
 
       <div className="sre-sidebar-nav">
-        {!collapsed && <div className="sre-sidebar-section">Services</div>}
+        {!effectiveCollapsed && <div className="sre-sidebar-section">Services</div>}
         {services.map(svc => (
           <button
             key={svc.name}
             type="button"
             className={`sre-sidebar-item${svc.name === selected ? ' active' : ''}`}
-            title={collapsed ? svc.name : ''}
+            title={effectiveCollapsed ? svc.name : ''}
             onClick={() => onSelect(svc.name)}
           >
             <span className="sre-sidebar-item-badge">{badge(svc.name)}</span>
-            {!collapsed && <span className="sre-sidebar-item-label">{svc.name}</span>}
+            {!effectiveCollapsed && <span className="sre-sidebar-item-label">{svc.name}</span>}
           </button>
         ))}
       </div>
