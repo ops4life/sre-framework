@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.1](https://github.com/ops4life/sre-framework/compare/v1.4.0...v1.4.1) (2026-06-17)
+
+
+### Bug Fixes
+
+* **ui:** hide collapse toggle and expand labels in mobile drawer ([1fcdc87](https://github.com/ops4life/sre-framework/commit/1fcdc878f606f3c0b39f981cedfcbae60dbc9661))
+
 # [1.4.0](https://github.com/ops4life/sre-framework/compare/v1.3.0...v1.4.0) (2026-06-17)
 
 
