@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.5.0](https://github.com/ops4life/sre-framework/compare/v1.4.1...v1.5.0) (2026-06-17)
+
+
+### Features
+
+* **ui:** SRE_FAVICON now controls sidebar logo + fix favicon override ([1fec6eb](https://github.com/ops4life/sre-framework/commit/1fec6eb2634ff7c9145ec79c99d72b81ba96b86b))
+
 ## [1.4.1](https://github.com/ops4life/sre-framework/compare/v1.4.0...v1.4.1) (2026-06-17)
 
 
