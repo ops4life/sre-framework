@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.7.0](https://github.com/ops4life/sre-framework/compare/v1.6.1...v1.7.0) (2026-06-17)
+
+
+### Features
+
+* **ui:** replace learn mode with tour guide + hover tips ([4a36bed](https://github.com/ops4life/sre-framework/commit/4a36bede3fa9b9f942979a4053ab2f3031c5d474))
+
 ## [1.6.1](https://github.com/ops4life/sre-framework/compare/v1.6.0...v1.6.1) (2026-06-17)
 
 
