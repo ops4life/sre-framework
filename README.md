@@ -13,6 +13,7 @@ An open-source SRE Ops dashboard that helps teams apply Site Reliability Enginee
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ops4life_sre-framework&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ops4life_sre-framework)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ops4life_sre-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ops4life_sre-framework)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ops4life_sre-framework&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ops4life_sre-framework)
+[![Sentry](https://img.shields.io/badge/sentry-monitored-362D59?logo=sentry&logoColor=white)](https://sentry.io)
 
 ---
 
