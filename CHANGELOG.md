@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.3.0](https://github.com/ops4life/sre-framework/compare/v1.2.0...v1.3.0) (2026-06-17)
+
+
+### Features
+
+* collapsible sidebar with devex-style design ([c8b67da](https://github.com/ops4life/sre-framework/commit/c8b67da7fa08fb57ced2adc832306bf8096e76c3))
+
 # [1.2.0](https://github.com/ops4life/sre-framework/compare/v1.1.2...v1.2.0) (2026-06-17)
 
 
