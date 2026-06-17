@@ -38,8 +38,8 @@ services:
       SRE_CONFIG_FILE: /app/demo/sre.demo.yaml
       SRE_TITLE: SRE Ops — Mission Control
       SRE_TIMEZONE: Asia/Ho_Chi_Minh
-      SRE_WINDOW: 28d
-      # SRE_FAVICON: /favicon.png
+      SRE_WINDOW: 30d
+      SRE_FAVICON: favicon.svg
     volumes:
       - ./sre.demo.yaml:/app/demo/sre.demo.yaml:ro
     depends_on:

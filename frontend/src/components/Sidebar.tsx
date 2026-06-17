@@ -8,6 +8,8 @@ interface Props {
   onToggleTheme: () => void;
   collapsed: boolean;
   onToggleCollapse: () => void;
+  mobileOpen: boolean;
+  onMobileClose: () => void;
 }
 
 function badge(name: string): string {
@@ -56,9 +58,11 @@ function IconChevron({ collapsed }: { collapsed: boolean }) {
   );
 }
 
-export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse }: Props) {
+export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, mobileOpen, onMobileClose }: Props) {
   return (
-    <nav className="sre-sidebar">
+    <>
+      {mobileOpen && <div className="sre-sidebar-backdrop" onClick={onMobileClose} aria-hidden />}
+    <nav className={`sre-sidebar${mobileOpen ? ' mobile-open' : ''}`}>
       <div className="sre-sidebar-brand">
         <div className="sre-sidebar-logo">
           <LogoMark />
@@ -88,5 +92,6 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
         ))}
       </div>
     </nav>
+    </>
   );
 }

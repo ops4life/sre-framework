@@ -11,6 +11,7 @@ interface Props {
   learnMode: boolean;
   onToggleLearn: () => void;
   metricWindow: string;
+  onOpenMobileNav: () => void;
 }
 
 function IconCalendar() {
@@ -33,7 +34,7 @@ function IconClock() {
   );
 }
 
-export default function TopBar({ allHealthy, error, clock, selectedService, learnMode, onToggleLearn, metricWindow }: Props) {
+export default function TopBar({ allHealthy, error, clock, selectedService, learnMode, onToggleLearn, metricWindow, onOpenMobileNav }: Props) {
   const today = new Date();
   const dateStr = today.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
   const windowLabel = metricWindow.endsWith('d') ? `${metricWindow.slice(0, -1)}-day window` : metricWindow;
@@ -51,8 +52,20 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
         marginBottom: 28,
         flexWrap: 'wrap'
       }}>
-        {/* Left: status + active service */}
+        {/* Left: hamburger (mobile) + status + active service */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            className="sre-hamburger"
+            onClick={onOpenMobileNav}
+            title="Open menu"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+              <line x1="2" y1="4" x2="14" y2="4" />
+              <line x1="2" y1="8" x2="14" y2="8" />
+              <line x1="2" y1="12" x2="14" y2="12" />
+            </svg>
+          </button>
           <div style={{
             display: 'flex',
             alignItems: 'center',

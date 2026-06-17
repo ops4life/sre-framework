@@ -23,6 +23,7 @@ export default function App() {
   const [theme, toggleTheme] = useTheme();
   const [learnMode, setLearnMode] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
     const clockId = setInterval(() => setClock(fmtClock(config.timezone)), 1000);
@@ -51,7 +52,7 @@ export default function App() {
   if (!data) {
     return (
       <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
-        <Sidebar services={services} selected={selectedService} onSelect={setSelectedService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} />
+        <Sidebar services={services} selected={selectedService} onSelect={name => { setSelectedService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
         <main className="page">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: 16 }}>
             {error ? (
@@ -85,9 +86,10 @@ export default function App() {
 
   return (
     <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
-      <Sidebar services={services} selected={selectedService} onSelect={setSelectedService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} />
+      <Sidebar services={services} selected={selectedService} onSelect={name => { setSelectedService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
       <main className="page">
         <TopBar
+          onOpenMobileNav={() => setMobileSidebarOpen(true)}
           allHealthy={allHealthy}
           error={error}
           clock={clock}

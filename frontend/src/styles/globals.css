@@ -511,12 +511,63 @@ html, body {
   display: none;
 }
 
+/* Hamburger — hidden on desktop */
+.sre-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 120ms, border-color 120ms;
+}
+
+.sre-hamburger:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0d0c;
+}
+
+/* Backdrop */
+.sre-sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 199;
+}
+
 @media (max-width: 720px) {
   .sre-layout, .sre-layout.collapsed {
     grid-template-columns: 1fr;
   }
+
+  .sre-hamburger {
+    display: flex;
+  }
+
+  .sre-sidebar-backdrop {
+    display: block;
+  }
+
+  /* Sidebar becomes a fixed drawer */
   .sre-sidebar {
-    display: none !important;
+    position: fixed;
+    inset-block: 0;
+    left: 0;
+    width: 240px;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .sre-sidebar.mobile-open {
+    transform: translateX(0);
   }
 }
 
