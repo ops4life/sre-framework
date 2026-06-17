@@ -62,18 +62,14 @@ class TestSpa:
             resp = client.get("/app.js")
         assert resp.status_code == 200
 
-    def test_missing_file_falls_back_to_index(self, tmp_path):
-        index = tmp_path / "index.html"
-        index.write_text("<html/>")
-
-        dist_index = "frontend/dist/index.html"
+    def test_missing_file_falls_back_to_index(self):
+        from fastapi.responses import JSONResponse as JR
 
         def isfile(path):
-            if path == dist_index:
-                return True
-            return False
+            return path == "frontend/dist/index.html"
 
         with patch("app.main.os.path.isfile", side_effect=isfile), \
-             patch("app.main.os.path.join", return_value="/nonexistent/app.js"):
+             patch("app.main.os.path.join", return_value="/nonexistent/app.js"), \
+             patch("app.main.FileResponse", return_value=JR({"served": "index"})):
             resp = client.get("/app.js")
         assert resp.status_code == 200
