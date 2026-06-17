@@ -5,8 +5,9 @@ import App from './App';
 import './styles/globals.css';
 
 document.title = config.title;
-const faviconEl = document.querySelector<HTMLLinkElement>('link[rel="icon"][type="image/png"]');
-if (faviconEl) faviconEl.href = config.favicon;
+document.querySelectorAll<HTMLLinkElement>('link[rel="icon"]').forEach(el => {
+  el.href = config.favicon;
+});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

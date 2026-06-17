@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
@@ -41,6 +42,9 @@ async def spa(full_path: str):
         with open(dist_index) as f:
             html = f.read()
         script = f"<script>window.__SRE_CONFIG__={json.dumps(_SRE_CONFIG)};</script>"
+        favicon = _SRE_CONFIG["favicon"]
+        if favicon != "/favicon.png":
+            html = re.sub(r'<link[^>]+rel="icon"[^>]*/>', f'<link rel="icon" href="{favicon}" />', html)
         html = html.replace("</head>", f"{script}</head>", 1)
         return HTMLResponse(html)
     return JSONResponse({"detail": "not found"}, status_code=404)

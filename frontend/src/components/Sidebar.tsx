@@ -1,3 +1,4 @@
+import { config } from '../lib/config';
 import type { Theme } from '../hooks/useTheme';
 
 interface Props {
@@ -66,7 +67,9 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
     <nav className={`sre-sidebar${mobileOpen ? ' mobile-open' : ''}`}>
       <div className="sre-sidebar-brand">
         <div className="sre-sidebar-logo">
-          <LogoMark />
+          {config.favicon !== '/favicon.png'
+            ? <img src={config.favicon} width="22" height="22" alt="" aria-hidden />
+            : <LogoMark />}
         </div>
         {!effectiveCollapsed && <span className="sre-sidebar-brand-name">SRE Ops</span>}
         <button type="button" className="sre-sidebar-theme" title="Toggle theme" onClick={onToggleTheme}>

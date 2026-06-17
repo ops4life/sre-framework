@@ -60,7 +60,7 @@ Set in `.env` or Docker environment. No rebuild needed — values are injected i
 | `SRE_TITLE` | `SRE Ops — Mission Control` | Browser `<title>` and dashboard H1 |
 | `SRE_TIMEZONE` | `UTC` | Clock display (IANA string, e.g. `America/New_York`) |
 | `SRE_WINDOW` | `28d` | Prometheus evaluation window; day format only (e.g. `7d`, `30d`) |
-| `SRE_FAVICON` | `/favicon.png` | Override favicon URL |
+| `SRE_FAVICON` | `/favicon.png` | Override browser favicon **and** sidebar logo. To serve a local file, mount it into `frontend/dist/` (e.g. `./my-logo.svg:/app/frontend/dist/my-logo.svg:ro`) and set this var to `/my-logo.svg` |
 
 - **`lib/config.ts`** — reads `window.__SRE_CONFIG__` with defaults fallback; imported by `App.tsx`, `TopBar.tsx`, `main.tsx`.
 - `SRE_WINDOW` is also read by `metrics.py` (`_window()`) for Prometheus query construction.

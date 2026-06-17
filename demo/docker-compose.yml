@@ -39,9 +39,10 @@ services:
       SRE_TITLE: SRE Ops — Mission Control
       SRE_TIMEZONE: Asia/Ho_Chi_Minh
       SRE_WINDOW: 30d
-      SRE_FAVICON: favicon.svg
+      SRE_FAVICON: /favicon.svg
     volumes:
       - ./sre.demo.yaml:/app/demo/sre.demo.yaml:ro
+      - ./favicon.svg:/app/frontend/dist/favicon.svg:ro  # replaces browser favicon + sidebar logo (SRE_FAVICON)
     depends_on:
       - prometheus
       - metrics-generator
