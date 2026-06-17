@@ -1,5 +1,6 @@
 # Python
 .venv/
+venv/
 __pycache__/
 *.py[cod]
 *.pyo
@@ -9,25 +10,45 @@ __pycache__/
 dist/
 build/
 .eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
 
 # Node
 node_modules/
 frontend/dist/
+frontend/.env.local
 website/build/
 website/.docusaurus/
 
-# Env
+# Env — never commit secrets
 .env
+.env.*
+!.env.example
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # Claude
 .claude/
 
+# AI artifacts
+.superpowers/
+docs/
+
 # OS
 .DS_Store
+Thumbs.db
+
+# Docker
+*.log
+docker-compose.override.yml
 
 # Antigravity
 .antigravitycli/
