@@ -1,16 +1,15 @@
 import type { ErrorBudgetBurn as ErrorBudgetBurnData } from '../types';
 import { fmt, spark, area } from '../lib/format';
-import InfoTip from './InfoTip';
+import HoverTip from './HoverTip';
 
 const RED = 'var(--danger)';
 
 interface Props {
   burn: ErrorBudgetBurnData;
   selectedService: string;
-  learnMode: boolean;
 }
 
-export default function ErrorBudgetBurn({ burn, selectedService, learnMode }: Props) {
+export default function ErrorBudgetBurn({ burn, selectedService }: Props) {
   const burnLine = spark(burn.burn_curve, 600, 180, 6);
   const burnArea = area(burn.burn_curve, 600, 180, 6);
 
@@ -23,13 +22,13 @@ export default function ErrorBudgetBurn({ burn, selectedService, learnMode }: Pr
   const burnPolicy = (burn.burn_rate_6h ?? 0) > 2 ? 'Deploy freeze' : 'Deploys allowed';
 
   return (
-    <div className="sre-panel">
+    <div className="sre-panel" data-tour="error-budget-burn">
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
         <div>
           <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' }}>
             Error Budget Burn — {selectedService}
-            <InfoTip conceptId="error_budget" learnMode={learnMode} />
-            <InfoTip conceptId="burn_rate" learnMode={learnMode} />
+            <HoverTip conceptId="error_budget" />
+            <HoverTip conceptId="burn_rate" />
           </h2>
           <p style={{ margin: '6px 0 0', fontSize: 12, color: 'var(--muted)' }}>
             {burn.target}% target · {burn.budget_pct.toFixed(2)}% budget / 28d
@@ -70,7 +69,7 @@ export default function ErrorBudgetBurn({ burn, selectedService, learnMode }: Pr
         borderTop: '1px solid var(--border)'
       }}>
         <div className="sre-sub-panel" style={{ padding: '12px 14px' }}>
-          <div className="sre-label" style={{ fontSize: 9 }}>Burn rate (1h)<InfoTip conceptId="burn_rate" learnMode={learnMode} /></div>
+          <div className="sre-label" style={{ fontSize: 9 }}>Burn rate (1h)<HoverTip conceptId="burn_rate" /></div>
           <div style={{ fontFamily: 'var(--mono)', fontSize: 16, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>
             {burn.burn_rate_1h !== null ? `${burn.burn_rate_1h}×` : '—'}
           </div>

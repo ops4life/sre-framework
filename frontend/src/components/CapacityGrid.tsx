@@ -1,6 +1,6 @@
 import type { Capacity } from '../types';
 import { fmt } from '../lib/format';
-import InfoTip from './InfoTip';
+import HoverTip from './HoverTip';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -8,10 +8,9 @@ const AMBER = 'var(--amber)';
 interface Props {
   capacity: Capacity;
   selectedService: string;
-  learnMode: boolean;
 }
 
-export default function CapacityGrid({ capacity, selectedService, learnMode }: Props) {
+export default function CapacityGrid({ capacity, selectedService }: Props) {
   const cards = [
     { label: 'VPS CPU', used: capacity.vps_cpu_pct },
     { label: 'VPS Memory', used: capacity.vps_memory_pct },
@@ -21,11 +20,12 @@ export default function CapacityGrid({ capacity, selectedService, learnMode }: P
   ].map(c => ({ ...c, color: (c.used ?? 0) > 80 ? AMBER : GREEN }));
 
   return (
-    <div className="sre-panel">
+    <div className="sre-panel" data-tour="capacity">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18, flexWrap: 'wrap', gap: 8 }}>
         <div>
           <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' }}>
-            Capacity<InfoTip conceptId="capacity" learnMode={learnMode} />
+            Capacity
+            <HoverTip conceptId="capacity" />
           </h2>
           <p style={{ margin: '5px 0 0', fontSize: 12, color: 'var(--muted)' }}>VPS + {selectedService} container resource usage</p>
         </div>

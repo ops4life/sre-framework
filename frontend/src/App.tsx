@@ -5,11 +5,13 @@ import { config } from './lib/config';
 import { useTheme } from './hooks/useTheme';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
+import TourModal from './components/TourModal';
 import KpiStrip from './components/KpiStrip';
 import SloTable from './components/SloTable';
 import GoldenSignals from './components/GoldenSignals';
 import ErrorBudgetBurn from './components/ErrorBudgetBurn';
 import CapacityGrid from './components/CapacityGrid';
+import { TOUR_STEPS } from './tours';
 
 const POLL_INTERVAL_MS = 20_000;
 
@@ -27,7 +29,7 @@ export default function App() {
     setSelectedService(name);
   };
   const [theme, toggleTheme] = useTheme();
-  const [learnMode, setLearnMode] = useState(false);
+  const [tourOpen, setTourOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -108,8 +110,8 @@ export default function App() {
           error={error}
           clock={clock}
           selectedService={kpis.selected_service}
-          learnMode={learnMode}
-          onToggleLearn={() => setLearnMode(v => !v)}
+          tourOpen={tourOpen}
+          onStartTour={() => setTourOpen(true)}
           metricWindow={config.window}
         />
 
@@ -117,18 +119,19 @@ export default function App() {
           <div className="sre-dashboard-layout">
             {/* Left Column (Wide) - main diagnostics */}
             <div className="sre-dashboard-main">
-              <KpiStrip kpis={kpis} sloCount={slo_table.length} allHealthy={allHealthy} learnMode={learnMode} />
-              <ErrorBudgetBurn burn={error_budget_burn} selectedService={kpis.selected_service} learnMode={learnMode} />
-              <SloTable rows={slo_table} selected={selectedService} learnMode={learnMode} />
+              <KpiStrip kpis={kpis} sloCount={slo_table.length} allHealthy={allHealthy} />
+              <ErrorBudgetBurn burn={error_budget_burn} selectedService={kpis.selected_service} />
+              <SloTable rows={slo_table} selected={selectedService} />
             </div>
 
             {/* Right Column (Aside) - live telemetry/capacity */}
             <div className="sre-dashboard-aside">
-              <GoldenSignals golden={golden_signals} selectedService={kpis.selected_service} learnMode={learnMode} />
-              <CapacityGrid capacity={capacity} selectedService={kpis.selected_service} learnMode={learnMode} />
+              <GoldenSignals golden={golden_signals} selectedService={kpis.selected_service} />
+              <CapacityGrid capacity={capacity} selectedService={kpis.selected_service} />
             </div>
           </div>
         </div>
+        {tourOpen && <TourModal steps={TOUR_STEPS} onClose={() => setTourOpen(false)} />}
       </main>
     </div>
   );

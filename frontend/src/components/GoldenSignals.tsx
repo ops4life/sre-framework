@@ -1,6 +1,6 @@
 import type { GoldenSignals as GoldenSignalsData } from '../types';
 import { fmt, spark, area } from '../lib/format';
-import InfoTip from './InfoTip';
+import HoverTip from './HoverTip';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -10,7 +10,6 @@ const BLUE = 'var(--blue)';
 interface Props {
   golden: GoldenSignalsData;
   selectedService: string;
-  learnMode: boolean;
 }
 
 const SIGNAL_TIPS: Record<string, string> = {
@@ -20,7 +19,7 @@ const SIGNAL_TIPS: Record<string, string> = {
   sat: 'saturation',
 };
 
-export default function GoldenSignals({ golden, selectedService, learnMode }: Props) {
+export default function GoldenSignals({ golden, selectedService }: Props) {
   const signals = [
     { id: 'lat', label: 'Latency p99', value: fmt(golden.latency_p99_ms, 0), unit: 'ms', color: (golden.latency_p99_ms ?? 0) > 500 ? AMBER : GREEN, vals: golden.series.latency_p99_ms },
     { id: 'traf', label: 'Traffic', value: fmt(golden.request_rate, 2), unit: 'req/s', color: BLUE, vals: golden.series.request_rate },
@@ -29,7 +28,7 @@ export default function GoldenSignals({ golden, selectedService, learnMode }: Pr
   ].map(g => ({ ...g, line: spark(g.vals, 120, 36, 3), area: area(g.vals, 120, 36, 3) }));
 
   return (
-    <div className="sre-panel">
+    <div className="sre-panel" data-tour="golden-signals">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
         <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' }}>
           Golden Signals
@@ -54,7 +53,7 @@ export default function GoldenSignals({ golden, selectedService, learnMode }: Pr
           <div key={g.id} className="sre-sub-panel">
             <div className="sre-label" style={{ fontSize: 10 }}>
               {g.label}
-              <InfoTip conceptId={SIGNAL_TIPS[g.id]} learnMode={learnMode} />
+              <HoverTip conceptId={SIGNAL_TIPS[g.id]} />
             </div>
             <div style={{
               fontFamily: 'var(--sans)',

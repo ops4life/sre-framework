@@ -1,6 +1,6 @@
 import type { SloRow } from '../types';
 import { fmt, spark } from '../lib/format';
-import InfoTip from './InfoTip';
+import HoverTip from './HoverTip';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -9,21 +9,20 @@ const RED = 'var(--danger)';
 interface Props {
   rows: SloRow[];
   selected: string;
-  learnMode: boolean;
 }
 
-export default function SloTable({ rows, selected, learnMode }: Props) {
+export default function SloTable({ rows, selected }: Props) {
   return (
-    <div className="sre-panel">
+    <div className="sre-panel" data-tour="slo-table">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
         <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' }}>
           Service Level Objectives
-          <InfoTip conceptId="slo" learnMode={learnMode} />
+          <HoverTip conceptId="slo" />
         </h2>
         <span className="sre-mono-muted">28d rolling</span>
       </div>
       <p style={{ margin: '0 0 20px', fontSize: 12, color: 'var(--muted)' }}>
-        SLI<InfoTip conceptId="sli" learnMode={learnMode} /> attainment vs target · error budget remaining
+        SLI<HoverTip conceptId="sli" /> attainment vs target · error budget remaining
       </p>
 
       <div className="sre-slo-head" style={{ padding: '0 8px 12px', borderBottom: '1px solid var(--border)', fontSize: 10.5, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600 }}>

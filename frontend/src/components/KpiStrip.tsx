@@ -1,6 +1,6 @@
 import type { Kpis } from '../types';
 import { fmt } from '../lib/format';
-import InfoTip from './InfoTip';
+import HoverTip from './HoverTip';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -11,10 +11,9 @@ interface Props {
   kpis: Kpis;
   sloCount: number;
   allHealthy: boolean;
-  learnMode: boolean;
 }
 
-export default function KpiStrip({ kpis, sloCount, allHealthy, learnMode }: Props) {
+export default function KpiStrip({ kpis, sloCount, allHealthy }: Props) {
   const cards = [
     { label: 'Composite SLO', value: fmt(kpis.composite_slo, 2), unit: '%', dot: allHealthy ? GREEN : AMBER, sub: `${sloCount} services`, tip: 'composite_slo' },
     { label: 'Error budget', value: fmt(kpis.error_budget_remaining_pct, 1), unit: '%', dot: (kpis.error_budget_remaining_pct ?? 100) < 20 ? RED : GREEN, sub: 'remaining', tip: 'error_budget' },
@@ -24,13 +23,13 @@ export default function KpiStrip({ kpis, sloCount, allHealthy, learnMode }: Prop
   ];
 
   return (
-    <div className="sre-kpi-grid">
+    <div className="sre-kpi-grid" data-tour="kpi-strip">
       {cards.map((k, i) => (
         <div key={i} className="sre-panel" style={{ padding: '20px 22px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
             <span className="sre-label" style={{ fontSize: 10 }}>
               {k.label}
-              <InfoTip conceptId={k.tip} learnMode={learnMode} />
+              <HoverTip conceptId={k.tip} />
             </span>
             <span style={{
               width: 10,

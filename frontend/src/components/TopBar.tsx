@@ -8,8 +8,8 @@ interface Props {
   error: string | null;
   clock: string;
   selectedService: string;
-  learnMode: boolean;
-  onToggleLearn: () => void;
+  tourOpen: boolean;
+  onStartTour: () => void;
   metricWindow: string;
   onOpenMobileNav: () => void;
 }
@@ -34,7 +34,7 @@ function IconClock() {
   );
 }
 
-export default function TopBar({ allHealthy, error, clock, selectedService, learnMode, onToggleLearn, metricWindow, onOpenMobileNav }: Props) {
+export default function TopBar({ allHealthy, error, clock, selectedService, tourOpen, onStartTour, metricWindow, onOpenMobileNav }: Props) {
   const today = new Date();
   const dateStr = today.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
   const windowLabel = metricWindow.endsWith('d') ? `${metricWindow.slice(0, -1)}-day window` : metricWindow;
@@ -107,17 +107,17 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
         {/* Right: learn toggle + date/clock */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
           <button
-            onClick={onToggleLearn}
-            title="Toggle Learn Mode — shows concept explanations on each panel"
+            onClick={onStartTour}
+            title="Start tour guide — walks through each dashboard section"
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: 6,
               padding: '7px 14px',
-              border: learnMode ? '1px solid var(--accent)' : '1px solid var(--border)',
+              border: tourOpen ? '1px solid var(--accent)' : '1px solid var(--border)',
               borderRadius: 'var(--radius-pill)',
-              background: learnMode ? 'var(--accent-tint)' : 'var(--bg)',
-              color: learnMode ? 'var(--accent)' : 'var(--muted)',
+              background: tourOpen ? 'var(--accent-tint)' : 'var(--bg)',
+              color: tourOpen ? 'var(--accent)' : 'var(--muted)',
               fontSize: 11,
               fontWeight: 600,
               fontFamily: 'var(--mono)',
@@ -126,8 +126,8 @@ export default function TopBar({ allHealthy, error, clock, selectedService, lear
               transition: 'var(--transition)',
             }}
           >
-            <span style={{ fontSize: 13, lineHeight: 1 }}>?</span>
-            <span>{learnMode ? 'Learn ON' : 'Learn'}</span>
+            <span style={{ fontSize: 13, lineHeight: 1 }}>▶</span>
+            <span>Tour</span>
           </button>
 
           <div className="sre-hide-mobile" style={{
