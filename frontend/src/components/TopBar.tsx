@@ -1,4 +1,6 @@
 import { config } from '../lib/config';
+import { ClipboardList } from '@/components/animate-ui/icons/clipboard-list';
+import { Clock } from '@/components/animate-ui/icons/clock';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -14,25 +16,6 @@ interface Props {
   onOpenMobileNav: () => void;
 }
 
-function IconCalendar() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <rect x="1" y="2.5" width="10" height="8.5" rx="1.5" />
-      <line x1="1" y1="5.5" x2="11" y2="5.5" />
-      <line x1="4" y1="1" x2="4" y2="3.5" />
-      <line x1="8" y1="1" x2="8" y2="3.5" />
-    </svg>
-  );
-}
-
-function IconClock() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <circle cx="6" cy="6" r="4.5" />
-      <polyline points="6,3.5 6,6 7.5,7.5" />
-    </svg>
-  );
-}
 
 export default function TopBar({ allHealthy, error, clock, selectedService, tourOpen, onStartTour, metricWindow, onOpenMobileNav }: Props) {
   const today = new Date();
@@ -142,12 +125,12 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
             fontFamily: 'var(--mono)'
           }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--muted)' }}>
-              <IconCalendar />
+              <ClipboardList animateOnHover size={12} aria-hidden />
               {dateStr}
             </span>
             <span style={{ width: 1, height: 12, background: 'var(--border)', flexShrink: 0 }} />
             <span style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 600, color: 'var(--text)' }}>
-              <IconClock />
+              <Clock animateOnHover size={12} aria-hidden />
               {clock}
             </span>
           </div>
@@ -164,7 +147,7 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
             fontWeight: 600,
             color: 'var(--text)'
           }}>
-            <IconClock />
+            <Clock animateOnHover size={12} aria-hidden />
             {clock}
           </div>
         </div>
