@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.9.0](https://github.com/ops4life/sre-framework/compare/v1.8.0...v1.9.0) (2026-06-18)
+
+
+### Features
+
+* **ui:** apply premium glassmorphism and theme-aware black & accent bubble background ([2d3ae6e](https://github.com/ops4life/sre-framework/commit/2d3ae6ee57f8806d319380f85cc392648ad19f3f))
+
 # [1.8.0](https://github.com/ops4life/sre-framework/compare/v1.7.1...v1.8.0) (2026-06-18)
 
 
