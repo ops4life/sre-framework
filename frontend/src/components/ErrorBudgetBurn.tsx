@@ -1,5 +1,6 @@
 import type { ErrorBudgetBurn as ErrorBudgetBurnData } from '../types';
 import { fmt, spark, area } from '../lib/format';
+import { useHoverTip } from './HoverTip';
 
 const RED = 'var(--danger)';
 
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function ErrorBudgetBurn({ burn, selectedService }: Props) {
+  const burnRateTip = useHoverTip('burn_rate');
   const burnLine = spark(burn.burn_curve, 600, 180, 6);
   const burnArea = area(burn.burn_curve, 600, 180, 6);
 
@@ -65,13 +67,15 @@ export default function ErrorBudgetBurn({ burn, selectedService }: Props) {
         paddingTop: 18,
         borderTop: '1px solid var(--border)'
       }}>
-        <div className="sre-sub-panel" style={{ padding: '12px 14px' }}>
+        <div className="sre-sub-panel" style={{ padding: '12px 14px', cursor: 'pointer' }} {...burnRateTip.handlers}>
+          {burnRateTip.tooltip}
           <div className="sre-label" style={{ fontSize: 9 }}>Burn rate (1h)</div>
           <div style={{ fontFamily: 'var(--mono)', fontSize: 16, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>
             {burn.burn_rate_1h !== null ? `${burn.burn_rate_1h}×` : '—'}
           </div>
         </div>
-        <div className="sre-sub-panel" style={{ padding: '12px 14px' }}>
+        <div className="sre-sub-panel" style={{ padding: '12px 14px', cursor: 'pointer' }} {...burnRateTip.handlers}>
+          {burnRateTip.tooltip}
           <div className="sre-label" style={{ fontSize: 9 }}>Burn rate (6h)</div>
           <div style={{ fontFamily: 'var(--mono)', fontSize: 16, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>
             {burn.burn_rate_6h !== null ? `${burn.burn_rate_6h}×` : '—'}

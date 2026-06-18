@@ -1,5 +1,6 @@
 import type { SloRow } from '../types';
 import { fmt, spark } from '../lib/format';
+import { useHoverTip } from './HoverTip';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -11,10 +12,15 @@ interface Props {
 }
 
 export default function SloTable({ rows, selected }: Props) {
+  const sloTip = useHoverTip('slo');
   return (
     <div className="sre-panel" data-tour="slo-table">
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-        <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' }}>
+        <h2
+          style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em', cursor: 'pointer' }}
+          {...sloTip.handlers}
+        >
+          {sloTip.tooltip}
           Service Level Objectives
         </h2>
         <span className="sre-mono-muted">28d rolling</span>

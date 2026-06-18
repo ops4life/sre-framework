@@ -2,6 +2,7 @@ import { config } from '../lib/config';
 import { ClipboardList } from '@/components/animate-ui/icons/clipboard-list';
 import { Clock } from '@/components/animate-ui/icons/clock';
 import { Play } from '@/components/animate-ui/icons/play';
+import { useHoverTip } from './HoverTip';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -22,6 +23,10 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
   const dateStr = today.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
   const windowLabel = metricWindow.endsWith('d') ? `${metricWindow.slice(0, -1)}-day window` : metricWindow;
 
+  const sloAttainmentTip = useHoverTip('slo_attainment');
+  const windowTip = useHoverTip('window');
+  const resolutionTip = useHoverTip('resolution');
+
   return (
     <div style={{ marginBottom: 36 }}>
       {/* Utility bar */}
@@ -37,16 +42,21 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
       }}>
         {/* Left: status + active service */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '7px 14px',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius-pill)',
-            background: 'var(--bg)',
-            boxShadow: 'var(--shadow)'
-          }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '7px 14px',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius-pill)',
+              background: 'var(--bg)',
+              boxShadow: 'var(--shadow)',
+              cursor: 'pointer'
+            }}
+            {...sloAttainmentTip.handlers}
+          >
+            {sloAttainmentTip.tooltip}
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: allHealthy ? GREEN : AMBER, flexShrink: 0 }} />
             <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-2)' }}>
               {allHealthy ? 'All systems operational' : 'Degraded SLO attainment'}
@@ -157,26 +167,36 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
         </div>
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          <div style={{
-            fontSize: 11,
-            fontWeight: 600,
-            color: 'var(--text-2)',
-            padding: '7px 13px',
-            background: 'var(--surface-2)',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius-pill)'
-          }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: 'var(--text-2)',
+              padding: '7px 13px',
+              background: 'var(--surface-2)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius-pill)',
+              cursor: 'pointer'
+            }}
+            {...windowTip.handlers}
+          >
+            {windowTip.tooltip}
             {windowLabel}
           </div>
-          <div style={{
-            fontSize: 11,
-            fontWeight: 600,
-            color: 'var(--text-2)',
-            padding: '7px 13px',
-            background: 'var(--surface-2)',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius-pill)'
-          }}>
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: 'var(--text-2)',
+              padding: '7px 13px',
+              background: 'var(--surface-2)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius-pill)',
+              cursor: 'pointer'
+            }}
+            {...resolutionTip.handlers}
+          >
+            {resolutionTip.tooltip}
             Live · 5m resolution
           </div>
         </div>

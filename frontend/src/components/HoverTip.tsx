@@ -11,7 +11,14 @@ export function useHoverTip(conceptId: string) {
   const handlers = {
     onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
       const r = e.currentTarget.getBoundingClientRect();
-      setPos({ top: r.bottom + 8, left: r.left });
+      const vw = document.documentElement.clientWidth;
+      const tipW = Math.min(260, vw - 24);
+      let left = r.left;
+      if (left + tipW > vw - 12) {
+        left = r.right - tipW;
+      }
+      left = Math.max(12, Math.min(left, vw - tipW - 12));
+      setPos({ top: r.bottom + 8, left });
     },
     onMouseLeave: () => setPos(null),
   };
@@ -22,7 +29,7 @@ export function useHoverTip(conceptId: string) {
       top: pos.top,
       left: pos.left,
       zIndex: 300,
-      width: 260,
+      width: 'min(260px, calc(100vw - 24px))',
       padding: '12px 14px',
       background: 'var(--surface)',
       border: '1px solid var(--border)',

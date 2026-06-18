@@ -76,4 +76,22 @@ export const concepts: Record<string, Concept> = {
     plain: "Infrastructure headroom. Tracking VPS-level CPU/memory/disk alongside per-container usage helps predict when you need to scale.",
     anchor: "capacity",
   },
+  slo_attainment: {
+    id: "slo_attainment",
+    term: "SLO Attainment",
+    plain: "Indicates whether all services are meeting their target reliability metrics. Degraded status means one or more service SLIs are currently below their SLO target.",
+    anchor: "slo--service-level-objective",
+  },
+  window: {
+    id: "window",
+    term: "SLO Window",
+    plain: "The rolling time window over which reliability targets are calculated. Typically 28 or 30 days to align with monthly reporting cycles.",
+    anchor: "slo--service-level-objective",
+  },
+  resolution: {
+    id: "resolution",
+    term: "Resolution",
+    plain: "The lookback step size for metrics calculations. A 5-minute resolution rate calculates data points using rolling 5-minute intervals.",
+    anchor: "golden-signals",
+  },
 };
