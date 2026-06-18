@@ -1,6 +1,7 @@
 import { config } from '../lib/config';
 import { ClipboardList } from '@/components/animate-ui/icons/clipboard-list';
 import { Clock } from '@/components/animate-ui/icons/clock';
+import { Play } from '@/components/animate-ui/icons/play';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -109,7 +110,7 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
               transition: 'var(--transition)',
             }}
           >
-            <span style={{ fontSize: 13, lineHeight: 1 }}>▶</span>
+            <Play animateOnHover size={13} aria-hidden />
             <span>Tour</span>
           </button>
 
