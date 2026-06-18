@@ -14,11 +14,10 @@ interface Props {
   tourOpen: boolean;
   onStartTour: () => void;
   metricWindow: string;
-  onOpenMobileNav: () => void;
 }
 
 
-export default function TopBar({ allHealthy, error, clock, selectedService, tourOpen, onStartTour, metricWindow, onOpenMobileNav }: Props) {
+export default function TopBar({ allHealthy, error, clock, selectedService, tourOpen, onStartTour, metricWindow }: Props) {
   const today = new Date();
   const dateStr = today.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
   const windowLabel = metricWindow.endsWith('d') ? `${metricWindow.slice(0, -1)}-day window` : metricWindow;
@@ -36,20 +35,8 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
         marginBottom: 28,
         flexWrap: 'wrap'
       }}>
-        {/* Left: hamburger (mobile) + status + active service */}
+        {/* Left: status + active service */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          <button
-            type="button"
-            className="sre-hamburger"
-            onClick={onOpenMobileNav}
-            title="Open menu"
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
-              <line x1="2" y1="4" x2="14" y2="4" />
-              <line x1="2" y1="8" x2="14" y2="8" />
-              <line x1="2" y1="12" x2="14" y2="12" />
-            </svg>
-          </button>
           <div style={{
             display: 'flex',
             alignItems: 'center',

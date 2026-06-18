@@ -2,7 +2,6 @@ import { config } from '../lib/config';
 import type { Theme } from '../hooks/useTheme';
 import { Sun } from '@/components/animate-ui/icons/sun';
 import { Moon } from '@/components/animate-ui/icons/moon';
-import { ArrowRight } from '@/components/animate-ui/icons/arrow-right';
 import { SlidersHorizontal } from '@/components/animate-ui/icons/sliders-horizontal';
 
 export type Page = 'dashboard' | 'customize';
@@ -15,8 +14,6 @@ interface Props {
   onToggleTheme: () => void;
   collapsed: boolean;
   onToggleCollapse: () => void;
-  mobileOpen: boolean;
-  onMobileClose: () => void;
   page: Page;
   onSetPage: (p: Page) => void;
   accent: string;
@@ -37,59 +34,57 @@ function LogoMark() {
 }
 
 
-export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, mobileOpen, onMobileClose, page, onSetPage }: Props) {
-  const effectiveCollapsed = collapsed && !mobileOpen;
-
+export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, page, onSetPage }: Props) {
   const handleCustomize = () => {
     onSetPage(page === 'customize' ? 'dashboard' : 'customize');
-    if (mobileOpen) onMobileClose();
   };
 
   return (
     <>
-      {mobileOpen && <div className="sre-sidebar-backdrop" onClick={onMobileClose} aria-hidden />}
-    <nav className={`sre-sidebar${mobileOpen ? ' mobile-open' : ''}`}>
+    <nav className="sre-sidebar">
       <div className="sre-sidebar-brand">
         <div className="sre-sidebar-logo">
           {config.favicon !== '/favicon.png'
             ? <img src={config.favicon} width="22" height="22" alt="" aria-hidden />
             : <LogoMark />}
         </div>
-        {!effectiveCollapsed && <span className="sre-sidebar-brand-name">SRE Ops</span>}
+        {!collapsed && <span className="sre-sidebar-brand-name">SRE Ops</span>}
         <button type="button" className="sre-sidebar-theme" title="Toggle theme" onClick={onToggleTheme}>
           {theme === 'dark' ? <Sun animateOnHover size={14} aria-hidden /> : <Moon animateOnHover animation="balancing" size={14} aria-hidden />}
         </button>
-        <button type="button" className="sre-sidebar-collapse" title={collapsed ? 'Expand' : 'Collapse'} onClick={onToggleCollapse}>
-          <ArrowRight animateOnHover animation="pointing" size={10} aria-hidden style={{ transform: collapsed ? 'rotate(0deg)' : 'rotate(180deg)', transition: 'transform 0.2s' }} />
+        <button type="button" className="sre-sidebar-collapse" title={collapsed ? 'Expand' : 'Collapse'} onClick={onToggleCollapse} aria-label="Toggle sidebar">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+            {collapsed ? <path d="M3 2l3 3-3 3"/> : <path d="M7 2L4 5l3 3"/>}
+          </svg>
         </button>
       </div>
 
       <div className="sre-sidebar-nav">
-        {!effectiveCollapsed && <div className="sre-sidebar-section">Services</div>}
+        {!collapsed && <div className="sre-sidebar-section">Services</div>}
         {services.map(svc => (
           <button
             key={svc.name}
             type="button"
             className={`sre-sidebar-item${svc.name === selected && page === 'dashboard' ? ' active' : ''}`}
-            title={effectiveCollapsed ? svc.name : ''}
-            onClick={() => { onSetPage('dashboard'); onSelect(svc.name); if (mobileOpen) onMobileClose(); }}
+            title={collapsed ? svc.name : ''}
+            onClick={() => { onSetPage('dashboard'); onSelect(svc.name); }}
           >
             <span className="sre-sidebar-item-badge">{badge(svc.name)}</span>
-            {!effectiveCollapsed && <span className="sre-sidebar-item-label">{svc.name}</span>}
+            {!collapsed && <span className="sre-sidebar-item-label">{svc.name}</span>}
           </button>
         ))}
 
-        {!effectiveCollapsed && <div className="sre-sidebar-section" style={{ marginTop: 8 }}>Settings</div>}
+        {!collapsed && <div className="sre-sidebar-section" style={{ marginTop: 8 }}>Settings</div>}
         <button
           type="button"
           className={`sre-sidebar-item${page === 'customize' ? ' active' : ''}`}
-          title={effectiveCollapsed ? 'Customize' : ''}
+          title={collapsed ? 'Customize' : ''}
           onClick={handleCustomize}
         >
           <span className="sre-sidebar-item-badge">
             <SlidersHorizontal animateOnHover size={14} aria-hidden />
           </span>
-          {!effectiveCollapsed && <span className="sre-sidebar-item-label">Customize</span>}
+          {!collapsed && <span className="sre-sidebar-item-label">Customize</span>}
         </button>
       </div>
     </nav>
