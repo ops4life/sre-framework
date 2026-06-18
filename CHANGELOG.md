@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.1](https://github.com/ops4life/sre-framework/compare/v1.12.0...v1.12.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* **ui:** remove accent styling from customize icon; fix InfoTip on mobile ([45feb29](https://github.com/ops4life/sre-framework/commit/45feb29d49ad29d3a5339f3ed83a6ef4b8ae7c5b))
+
 # [1.12.0](https://github.com/ops4life/sre-framework/compare/v1.11.0...v1.12.0) (2026-06-18)
 
 
