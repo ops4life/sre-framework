@@ -107,20 +107,16 @@ function BubbleBackground({
         width: '100%',
         height: '100%',
         overflow: 'hidden',
+        '--bubble-first': colors.first,
+        '--bubble-second': colors.second,
+        '--bubble-third': colors.third,
+        '--bubble-fourth': colors.fourth,
+        '--bubble-fifth': colors.fifth,
+        '--bubble-sixth': colors.sixth,
         ...props.style,
-      }}
+      } as React.CSSProperties}
       {...props}
     >
-      <style>{`
-        :root {
-          --bubble-first: ${colors.first};
-          --bubble-second: ${colors.second};
-          --bubble-third: ${colors.third};
-          --bubble-fourth: ${colors.fourth};
-          --bubble-fifth: ${colors.fifth};
-          --bubble-sixth: ${colors.sixth};
-        }
-      `}</style>
 
       <svg xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0, width: 0, height: 0 }}>
         <defs>
@@ -132,7 +128,7 @@ function BubbleBackground({
         </defs>
       </svg>
 
-      <div style={{ position: 'absolute', inset: 0, filter: 'url(#bubble-goo) blur(80px)' }}>
+      <div style={{ position: 'absolute', inset: 0, filter: 'url(#bubble-goo) blur(50px)' }}>
         {/* Blob 1 — bounces vertically */}
         <motion.div
           style={{
@@ -141,7 +137,7 @@ function BubbleBackground({
             height: '80%',
             top: '10%',
             left: '10%',
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-first),0.08) 0%, rgba(var(--bubble-first),0) 50%)',
+            background: 'radial-gradient(circle at center, rgba(var(--bubble-first),0.35) 0%, rgba(var(--bubble-first),0) 50%)',
           }}
           animate={{ y: [-50, 50, -50] }}
           transition={{ duration: 30, ease: 'easeInOut', repeat: Infinity }}
@@ -167,7 +163,7 @@ function BubbleBackground({
             position: 'relative',
             width: '80%',
             height: '80%',
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-second),0.08) 0%, rgba(var(--bubble-second),0) 50%)',
+            background: 'radial-gradient(circle at center, rgba(var(--bubble-second),0.35) 0%, rgba(var(--bubble-second),0) 50%)',
           }} />
         </motion.div>
 
@@ -192,7 +188,7 @@ function BubbleBackground({
             height: '80%',
             top: 'calc(50% + 200px)',
             left: 'calc(50% - 500px)',
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-third),0.08) 0%, rgba(var(--bubble-third),0) 50%)',
+            background: 'radial-gradient(circle at center, rgba(var(--bubble-third),0.35) 0%, rgba(var(--bubble-third),0) 50%)',
           }} />
         </motion.div>
 
@@ -205,7 +201,7 @@ function BubbleBackground({
             top: '10%',
             left: '10%',
             opacity: 0.7,
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-fourth),0.08) 0%, rgba(var(--bubble-fourth),0) 50%)',
+            background: 'radial-gradient(circle at center, rgba(var(--bubble-fourth),0.35) 0%, rgba(var(--bubble-fourth),0) 50%)',
           }}
           animate={{ x: [-50, 50, -50] }}
           transition={{ duration: 40, ease: 'easeInOut', repeat: Infinity }}
@@ -232,7 +228,7 @@ function BubbleBackground({
             height: '160%',
             top: 'calc(50% - 80%)',
             left: 'calc(50% - 80%)',
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-fifth),0.08) 0%, rgba(var(--bubble-fifth),0) 50%)',
+            background: 'radial-gradient(circle at center, rgba(var(--bubble-fifth),0.35) 0%, rgba(var(--bubble-fifth),0) 50%)',
           }} />
         </motion.div>
 
@@ -244,7 +240,7 @@ function BubbleBackground({
               width: '100%',
               height: '100%',
               opacity: 0.7,
-              background: 'radial-gradient(circle at center, rgba(var(--bubble-sixth),0.08) 0%, rgba(var(--bubble-sixth),0) 50%)',
+              background: 'radial-gradient(circle at center, rgba(var(--bubble-sixth),0.35) 0%, rgba(var(--bubble-sixth),0) 50%)',
               x: springX,
               y: springY,
             }}

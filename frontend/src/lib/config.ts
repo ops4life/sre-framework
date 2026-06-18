@@ -3,6 +3,7 @@ interface SreConfig {
   timezone: string;
   window: string;
   favicon: string;
+  accent: string;
 }
 
 const defaults: SreConfig = {
@@ -10,6 +11,7 @@ const defaults: SreConfig = {
   timezone: 'UTC',
   window: '28d',
   favicon: '/favicon.png',
+  accent: '',
 };
 
 export const config: SreConfig = (window as Window & { __SRE_CONFIG__?: SreConfig }).__SRE_CONFIG__ ?? defaults;

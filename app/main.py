@@ -15,6 +15,7 @@ _SRE_CONFIG = {
     "timezone": os.getenv("SRE_TIMEZONE", "UTC"),
     "window": os.getenv("SRE_WINDOW", "28d"),
     "favicon": os.getenv("SRE_FAVICON", "/favicon.png"),
+    "accent": os.getenv("SRE_ACCENT", ""),
 }
 
 if os.path.isdir("frontend/dist/assets"):

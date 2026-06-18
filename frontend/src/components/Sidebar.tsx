@@ -4,6 +4,8 @@ import { Sun } from '@/components/animate-ui/icons/sun';
 import { Moon } from '@/components/animate-ui/icons/moon';
 import { ArrowRight } from '@/components/animate-ui/icons/arrow-right';
 
+export type Page = 'dashboard' | 'customize';
+
 interface Props {
   services: { name: string }[];
   selected: string;
@@ -14,6 +16,9 @@ interface Props {
   onToggleCollapse: () => void;
   mobileOpen: boolean;
   onMobileClose: () => void;
+  page: Page;
+  onSetPage: (p: Page) => void;
+  accent: string;
 }
 
 function badge(name: string): string {
@@ -21,7 +26,6 @@ function badge(name: string): string {
   if (parts.length > 1) return (parts[0][0] + parts[1][0]).toUpperCase();
   return name.slice(0, 2).toUpperCase();
 }
-
 
 function LogoMark() {
   return (
@@ -31,9 +35,25 @@ function LogoMark() {
   );
 }
 
+function PaletteIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="5" cy="5.5" r="1" fill="currentColor" />
+      <circle cx="9" cy="5.5" r="1" fill="currentColor" />
+      <circle cx="7" cy="9" r="1" fill="currentColor" />
+    </svg>
+  );
+}
 
-export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, mobileOpen, onMobileClose }: Props) {
+export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, mobileOpen, onMobileClose, page, onSetPage, accent }: Props) {
   const effectiveCollapsed = collapsed && !mobileOpen;
+
+  const handleCustomize = () => {
+    onSetPage(page === 'customize' ? 'dashboard' : 'customize');
+    if (mobileOpen) onMobileClose();
+  };
+
   return (
     <>
       {mobileOpen && <div className="sre-sidebar-backdrop" onClick={onMobileClose} aria-hidden />}
@@ -59,14 +79,31 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
           <button
             key={svc.name}
             type="button"
-            className={`sre-sidebar-item${svc.name === selected ? ' active' : ''}`}
+            className={`sre-sidebar-item${svc.name === selected && page === 'dashboard' ? ' active' : ''}`}
             title={effectiveCollapsed ? svc.name : ''}
-            onClick={() => onSelect(svc.name)}
+            onClick={() => { onSetPage('dashboard'); onSelect(svc.name); if (mobileOpen) onMobileClose(); }}
           >
             <span className="sre-sidebar-item-badge">{badge(svc.name)}</span>
             {!effectiveCollapsed && <span className="sre-sidebar-item-label">{svc.name}</span>}
           </button>
         ))}
+
+        {!effectiveCollapsed && <div className="sre-sidebar-section" style={{ marginTop: 8 }}>Settings</div>}
+        <button
+          type="button"
+          className={`sre-sidebar-item${page === 'customize' ? ' active' : ''}`}
+          title={effectiveCollapsed ? 'Customize' : ''}
+          onClick={handleCustomize}
+          style={page !== 'customize' && accent !== '#caff04' ? { '--item-accent-dot': accent } as React.CSSProperties : undefined}
+        >
+          <span
+            className="sre-sidebar-item-badge"
+            style={page !== 'customize' ? { background: accent, color: '#0b0d0c' } : undefined}
+          >
+            <PaletteIcon />
+          </span>
+          {!effectiveCollapsed && <span className="sre-sidebar-item-label">Customize</span>}
+        </button>
       </div>
     </nav>
     </>

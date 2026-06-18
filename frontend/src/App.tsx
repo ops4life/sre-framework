@@ -3,8 +3,11 @@ import type { Overview } from './types';
 import { fmtClock } from './lib/format';
 import { config } from './lib/config';
 import { useTheme } from './hooks/useTheme';
+import { useAccent } from './hooks/useAccent';
 import Sidebar from './components/Sidebar';
+import type { Page } from './components/Sidebar';
 import TopBar from './components/TopBar';
+import CustomizePage from './pages/CustomizePage';
 import TourModal from './components/TourModal';
 import KpiStrip from './components/KpiStrip';
 import SloTable from './components/SloTable';
@@ -30,6 +33,8 @@ export default function App() {
     setSelectedService(name);
   };
   const [theme, toggleTheme] = useTheme();
+  const [accent, setAccent] = useAccent();
+  const [page, setPage] = useState<Page>('dashboard');
   const [tourOpen, setTourOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -65,24 +70,32 @@ export default function App() {
 
   const services = data?.slo_table.map(r => ({ name: r.name })) ?? (selectedService ? [{ name: selectedService }] : []);
 
+  const accentRgb = (() => {
+    const hex = /^#[0-9a-fA-F]{6}$/.test(accent) ? accent : '#caff04';
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `${r},${g},${b}`;
+  })();
+
   const bubbleBackground = theme === 'dark'
-    ? 'linear-gradient(135deg, rgba(58,18,105,0.6) 0%, rgba(18,40,100,0.6) 100%)'
-    : 'linear-gradient(135deg, rgba(202,255,4,0.08) 0%, rgba(0,200,255,0.08) 100%)';
+    ? `linear-gradient(135deg, rgba(${accentRgb},0.22) 0%, rgba(0,0,0,0) 100%)`
+    : `linear-gradient(135deg, rgba(${accentRgb},0.18) 0%, rgba(0,200,255,0.15) 100%)`;
 
   const bubbleColors = {
-    first: '202,255,4',    // Accent (lime)
-    second: '0,0,0',       // Black
-    third: '202,255,4',    // Accent (lime)
-    fourth: '0,0,0',       // Black
-    fifth: '202,255,4',    // Accent (lime)
-    sixth: '0,0,0',        // Black
+    first: accentRgb,
+    second: '0,0,0',
+    third: accentRgb,
+    fourth: '0,0,0',
+    fifth: accentRgb,
+    sixth: '0,0,0',
   };
 
   if (!data) {
     return (
       <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
         <BubbleBackground interactive colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
-        <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
+        <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} page={page} onSetPage={setPage} accent={accent} />
         <main className="page">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: 16 }}>
             {error ? (
@@ -117,36 +130,39 @@ export default function App() {
   return (
     <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
       <BubbleBackground interactive colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
-      <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
-      <main className="page">
-        <TopBar
-          onOpenMobileNav={() => setMobileSidebarOpen(true)}
-          allHealthy={allHealthy}
-          error={error}
-          clock={clock}
-          selectedService={kpis.selected_service}
-          tourOpen={tourOpen}
-          onStartTour={() => setTourOpen(true)}
-          metricWindow={config.window}
-        />
+      <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} page={page} onSetPage={setPage} accent={accent} />
+      <main className="page" style={page === 'customize' ? { padding: 0 } : undefined}>
+        {page === 'customize' ? (
+          <CustomizePage accent={accent} onSetAccent={setAccent} theme={theme} />
+        ) : (
+          <>
+            <TopBar
+              onOpenMobileNav={() => setMobileSidebarOpen(true)}
+              allHealthy={allHealthy}
+              error={error}
+              clock={clock}
+              selectedService={kpis.selected_service}
+              tourOpen={tourOpen}
+              onStartTour={() => setTourOpen(true)}
+              metricWindow={config.window}
+            />
 
-        <div className="slide-up" style={{ marginTop: 20, flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <div className="sre-dashboard-layout">
-            {/* Left Column (Wide) - main diagnostics */}
-            <div className="sre-dashboard-main">
-              <KpiStrip kpis={kpis} sloCount={slo_table.length} allHealthy={allHealthy} />
-              <ErrorBudgetBurn burn={error_budget_burn} selectedService={kpis.selected_service} />
-              <SloTable rows={slo_table} selected={selectedService} />
+            <div className="slide-up" style={{ marginTop: 20, flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <div className="sre-dashboard-layout">
+                <div className="sre-dashboard-main">
+                  <KpiStrip kpis={kpis} sloCount={slo_table.length} allHealthy={allHealthy} />
+                  <ErrorBudgetBurn burn={error_budget_burn} selectedService={kpis.selected_service} />
+                  <SloTable rows={slo_table} selected={selectedService} />
+                </div>
+                <div className="sre-dashboard-aside">
+                  <GoldenSignals golden={golden_signals} selectedService={kpis.selected_service} />
+                  <CapacityGrid capacity={capacity} selectedService={kpis.selected_service} />
+                </div>
+              </div>
             </div>
-
-            {/* Right Column (Aside) - live telemetry/capacity */}
-            <div className="sre-dashboard-aside">
-              <GoldenSignals golden={golden_signals} selectedService={kpis.selected_service} />
-              <CapacityGrid capacity={capacity} selectedService={kpis.selected_service} />
-            </div>
-          </div>
-        </div>
-        {tourOpen && <TourModal steps={TOUR_STEPS} onClose={() => setTourOpen(false)} />}
+            {tourOpen && <TourModal steps={TOUR_STEPS} onClose={() => setTourOpen(false)} />}
+          </>
+        )}
       </main>
     </div>
   );
