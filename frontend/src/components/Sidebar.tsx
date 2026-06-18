@@ -75,6 +75,19 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
           </button>
         ))}
 
+        {!collapsed && <div className="sre-sidebar-section" style={{ marginTop: 8 }}>Tools</div>}
+        <button
+          type="button"
+          className={`sre-sidebar-item${page === 'concepts' ? ' active' : ''}`}
+          title={collapsed ? 'Learning Lab' : ''}
+          onClick={() => onSetPage(page === 'concepts' ? 'dashboard' : 'concepts')}
+        >
+          <span className="sre-sidebar-item-badge">
+            <Lightbulb animateOnHover size={14} aria-hidden />
+          </span>
+          {!collapsed && <span className="sre-sidebar-item-label">Learning Lab</span>}
+        </button>
+
         {!collapsed && <div className="sre-sidebar-section" style={{ marginTop: 8 }}>Settings</div>}
         <button
           type="button"
@@ -86,17 +99,6 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
             <SlidersHorizontal animateOnHover size={14} aria-hidden />
           </span>
           {!collapsed && <span className="sre-sidebar-item-label">Customize</span>}
-        </button>
-        <button
-          type="button"
-          className={`sre-sidebar-item${page === 'concepts' ? ' active' : ''}`}
-          title={collapsed ? 'Concepts' : ''}
-          onClick={() => onSetPage(page === 'concepts' ? 'dashboard' : 'concepts')}
-        >
-          <span className="sre-sidebar-item-badge">
-            <Lightbulb animateOnHover size={14} aria-hidden />
-          </span>
-          {!collapsed && <span className="sre-sidebar-item-label">Concepts</span>}
         </button>
       </div>
     </nav>

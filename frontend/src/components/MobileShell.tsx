@@ -34,7 +34,7 @@ export default function MobileShell({ services, selected, onSelect, theme, onTog
 
   const goTo = (id: string) => { onSelect(id); setDrawerOpen(false); };
 
-  const title = page === 'customize' ? 'Customize' : (selected || 'SRE Ops');
+  const title = page === 'customize' ? 'Customize' : page === 'concepts' ? 'Learning Lab' : (selected || 'SRE Ops');
 
   return (
     <>
@@ -98,6 +98,21 @@ export default function MobileShell({ services, selected, onSelect, theme, onTog
                     <span className="m-nav-label">{svc.name}</span>
                   </button>
                 ))}
+              </div>
+
+              <div className="m-nav-group">
+                <div className="m-nav-section">Tools</div>
+                <button
+                  className={`m-nav-item${page === 'concepts' ? ' active' : ''}`}
+                  onClick={() => { onSetPage(page === 'concepts' ? 'dashboard' : 'concepts'); setDrawerOpen(false); }}
+                >
+                  <span className="m-nav-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+                  </span>
+                  <span className="m-nav-label">Learning Lab</span>
+                </button>
               </div>
 
               <div className="m-nav-group">

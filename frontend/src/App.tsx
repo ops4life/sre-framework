@@ -38,8 +38,12 @@ export default function App() {
   const [accent, setAccent] = useAccent();
   const [page, setPage] = useState<Page>(() => {
     if (window.location.pathname.endsWith('/CONCEPTS.md')) return 'concepts';
-    return 'dashboard';
+    return (localStorage.getItem('sre.page') as Page) ?? 'dashboard';
   });
+  const setPagePersisted = (p: Page) => {
+    localStorage.setItem('sre.page', p);
+    setPage(p);
+  };
   const [tourOpen, setTourOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -96,8 +100,8 @@ export default function App() {
   };
 
   if (!data) {
-    const sidebar = <Sidebar services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} page={page} onSetPage={setPage} accent={accent} />;
-    const mobile = <MobileShell services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} page={page} onSetPage={setPage} />;
+    const sidebar = <Sidebar services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} page={page} onSetPage={setPagePersisted} accent={accent} />;
+    const mobile = <MobileShell services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} page={page} onSetPage={setPagePersisted} />;
     const bg = <BubbleBackground colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />;
 
     if (page === 'concepts') {
@@ -154,8 +158,8 @@ export default function App() {
   return (
     <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
       <BubbleBackground colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
-      <Sidebar services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} page={page} onSetPage={setPage} accent={accent} />
-      <MobileShell services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} page={page} onSetPage={setPage} />
+      <Sidebar services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} page={page} onSetPage={setPagePersisted} accent={accent} />
+      <MobileShell services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} page={page} onSetPage={setPagePersisted} />
       <main className="page">
         {page === 'customize' ? (
           <CustomizePage accent={accent} onSetAccent={setAccent} theme={theme} onToggleTheme={toggleTheme} />
