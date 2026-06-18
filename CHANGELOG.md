@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.2](https://github.com/ops4life/sre-framework/compare/v1.13.1...v1.13.2) (2026-06-18)
+
+
+### Bug Fixes
+
+* resolve tooltip screen border overlap and add hovertips for key elements ([922073e](https://github.com/ops4life/sre-framework/commit/922073e654175b903583bc1214e0a2c342a58827))
+
 ## [1.13.1](https://github.com/ops4life/sre-framework/compare/v1.13.0...v1.13.1) (2026-06-18)
 
 
