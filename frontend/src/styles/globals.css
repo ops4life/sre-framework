@@ -11,6 +11,11 @@
   --shadow: 0 10px 30px rgba(11, 13, 12, 0.03);
   --accent-tint: rgba(202, 255, 4, 0.16);
 
+  /* Glassmorphism Color Tokens */
+  --panel-bg: rgba(255, 255, 255, 0.45);
+  --sub-panel-bg: rgba(238, 241, 239, 0.45);
+  --sidebar-bg: rgba(244, 246, 245, 0.65);
+
   --accent: #caff04;
   --accent-hover: #b6e602;
   --green: #22c55e;
@@ -41,24 +46,33 @@
   --border: rgba(243, 245, 246, 0.08);
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
   --accent-tint: rgba(202, 255, 4, 0.08);
+
+  /* Glassmorphism Color Tokens */
+  --panel-bg: rgba(16, 18, 19, 0.45);
+  --sub-panel-bg: rgba(25, 28, 30, 0.45);
+  --sidebar-bg: rgba(16, 18, 19, 0.65);
 }
 
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: var(--surface);
-  /* Elegant grid canvas background pattern matching demo.jpg */
-  background-image: linear-gradient(var(--border) 1px, transparent 1px),
-                    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 36px 36px;
+  background: var(--bg);
+  transition: background-color 0.3s ease;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: transparent;
   color: var(--text);
   font-family: var(--sans);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 ::selection {
@@ -167,7 +181,9 @@ html, body {
 
 /* Common Panel styles replacing inline styles */
 .sre-panel {
-  background: var(--bg);
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 24px 28px;
@@ -184,7 +200,9 @@ html, body {
 }
 
 .sre-sub-panel {
-  background: var(--surface-2);
+  background: var(--sub-panel-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 16px;
@@ -304,6 +322,8 @@ html, body {
   height: 100dvh;
   min-height: 100vh;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
   transition: grid-template-columns 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -323,7 +343,9 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--surface);
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid var(--border);
 }
 
@@ -332,7 +354,7 @@ html, body {
   height: 64px;
   padding: 0 16px;
   border-bottom: 1px solid var(--border);
-  background: var(--bg);
+  background: transparent;
   display: flex;
   align-items: center;
   gap: 10px;

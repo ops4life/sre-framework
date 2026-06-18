@@ -6,7 +6,7 @@
 
 An open-source SRE Ops dashboard that helps teams apply Site Reliability Engineering practices. Config-driven, Prometheus-native, ships with a zero-infra demo stack.
 
-**MIT License · FastAPI + React + Vite · Docker Compose**
+**MIT License · FastAPI + React + Vite · Docker Compose · [Live Demo](https://sre-demo.ops4life.com)**
 
 [![CI](https://github.com/ops4life/sre-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/ops4life/sre-framework/actions/workflows/ci.yml)
 [![Docker](https://img.shields.io/docker/v/ops4life/sre-framework/latest)](https://hub.docker.com/r/ops4life/sre-framework)
@@ -33,7 +33,7 @@ cd sre
 docker compose -f demo/docker-compose.yml up --build
 ```
 
-Open **http://localhost:8080** — live SRE dashboard with synthetic metrics from three fake services (`frontend`, `api`, `worker`). No Traefik, no Prometheus to install, no real services needed.
+Open **http://localhost:8080** — live SRE dashboard with synthetic metrics from three fake services (`frontend`, `api`, `worker`). No Traefik, no Prometheus to install, no real services needed. Or view the hosted [Live Demo](https://sre-demo.ops4life.com).
 
 ---
 

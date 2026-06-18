@@ -12,6 +12,7 @@ import GoldenSignals from './components/GoldenSignals';
 import ErrorBudgetBurn from './components/ErrorBudgetBurn';
 import CapacityGrid from './components/CapacityGrid';
 import { TOUR_STEPS } from './tours';
+import { BubbleBackground } from './components/animate-ui/backgrounds/bubble';
 
 const POLL_INTERVAL_MS = 20_000;
 
@@ -64,10 +65,23 @@ export default function App() {
 
   const services = data?.slo_table.map(r => ({ name: r.name })) ?? (selectedService ? [{ name: selectedService }] : []);
 
+  const bubbleBackground = theme === 'dark'
+    ? 'linear-gradient(135deg, rgba(58,18,105,0.6) 0%, rgba(18,40,100,0.6) 100%)'
+    : 'linear-gradient(135deg, rgba(202,255,4,0.08) 0%, rgba(0,200,255,0.08) 100%)';
+
+  const bubbleColors = {
+    first: '202,255,4',    // Accent (lime)
+    second: '0,0,0',       // Black
+    third: '202,255,4',    // Accent (lime)
+    fourth: '0,0,0',       // Black
+    fifth: '202,255,4',    // Accent (lime)
+    sixth: '0,0,0',        // Black
+  };
 
   if (!data) {
     return (
       <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
+        <BubbleBackground interactive colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
         <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
         <main className="page">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: 16 }}>
@@ -102,6 +116,7 @@ export default function App() {
 
   return (
     <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
+      <BubbleBackground interactive colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
       <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} />
       <main className="page">
         <TopBar
