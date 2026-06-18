@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.1](https://github.com/ops4life/sre-framework/compare/v1.13.0...v1.13.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* **InfoTip:** clamp tooltip to right viewport edge ([cc0005a](https://github.com/ops4life/sre-framework/commit/cc0005a891c9531aa0f617cfee71b8313925e309))
+
 # [1.13.0](https://github.com/ops4life/sre-framework/compare/v1.12.1...v1.13.0) (2026-06-18)
 
 
