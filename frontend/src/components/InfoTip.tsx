@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { concepts } from '../content/concepts';
 import { Lightbulb } from '@/components/animate-ui/icons/lightbulb';
 
@@ -8,18 +8,36 @@ interface Props {
 
 export default function InfoTip({ conceptId }: Props) {
   const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
   const concept = concepts[conceptId];
+
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent | TouchEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('touchstart', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      document.removeEventListener('touchstart', handler);
+    };
+  }, [open]);
 
   if (!concept) return null;
 
   return (
     <span
+      ref={ref}
       style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
       <button
         title={`Learn: ${concept.term}`}
+        onClick={() => setOpen(v => !v)}
         style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -30,7 +48,7 @@ export default function InfoTip({ conceptId }: Props) {
           border: '1px solid var(--accent)',
           background: open ? 'var(--accent)' : 'var(--accent-tint)',
           color: open ? '#0b0d0c' : 'var(--accent)',
-          cursor: 'default',
+          cursor: 'pointer',
           padding: 0,
         }}
       >
@@ -39,16 +57,21 @@ export default function InfoTip({ conceptId }: Props) {
 
       {open && (
         <div style={{
-          position: 'absolute',
-          top: 28,
-          right: 0,
-          zIndex: 100,
-          width: 280,
+          position: 'fixed',
+          zIndex: 300,
+          width: 'min(280px, calc(100vw - 24px))',
           padding: '14px 16px',
           background: 'var(--surface)',
           border: '1px solid var(--border)',
           borderRadius: 'var(--radius-md)',
           boxShadow: 'var(--shadow)',
+          ...(ref.current ? (() => {
+            const r = ref.current.getBoundingClientRect();
+            const tipW = Math.min(280, window.innerWidth - 24);
+            let left = r.right - tipW;
+            if (left < 12) left = 12;
+            return { top: r.bottom + 8, left };
+          })() : {}),
         }}>
           <div style={{
             display: 'flex',

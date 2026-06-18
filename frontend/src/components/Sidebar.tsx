@@ -37,7 +37,7 @@ function LogoMark() {
 }
 
 
-export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, mobileOpen, onMobileClose, page, onSetPage, accent }: Props) {
+export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, mobileOpen, onMobileClose, page, onSetPage }: Props) {
   const effectiveCollapsed = collapsed && !mobileOpen;
 
   const handleCustomize = () => {
@@ -85,12 +85,8 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
           className={`sre-sidebar-item${page === 'customize' ? ' active' : ''}`}
           title={effectiveCollapsed ? 'Customize' : ''}
           onClick={handleCustomize}
-          style={page !== 'customize' && accent !== '#caff04' ? { '--item-accent-dot': accent } as React.CSSProperties : undefined}
         >
-          <span
-            className="sre-sidebar-item-badge"
-            style={page !== 'customize' ? { background: accent, color: '#0b0d0c' } : undefined}
-          >
+          <span className="sre-sidebar-item-badge">
             <SlidersHorizontal animateOnHover size={14} aria-hidden />
           </span>
           {!effectiveCollapsed && <span className="sre-sidebar-item-label">Customize</span>}
