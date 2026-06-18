@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.16.1](https://github.com/ops4life/sre-framework/compare/v1.16.0...v1.16.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* **concepts:** render page without API data dependency ([4a956d8](https://github.com/ops4life/sre-framework/commit/4a956d87195e689c39aa970bc4c2f7e9bf9558cd))
+* **simulator:** fix display bugs and improve default state ([fb78252](https://github.com/ops4life/sre-framework/commit/fb78252c103cee07a77a7b133dc17e6094457347))
+
 # [1.16.0](https://github.com/ops4life/sre-framework/compare/v1.15.0...v1.16.0) (2026-06-18)
 
 
