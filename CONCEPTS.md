@@ -1,6 +1,6 @@
 # SRE Concepts
 
-A concise primer on the concepts shown in this dashboard. Each section links to the corresponding panel in the UI — enable **Learn Mode** (the `?` button in the top bar) to see inline tooltips as you explore live data.
+A concise primer on the concepts shown in this dashboard. Each panel has a lightbulb icon — hover (or tap on mobile) to see inline tooltips as you explore live data.
 
 ---
 

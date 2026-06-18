@@ -92,6 +92,7 @@ These are injected at serve time — no rebuild required. Set them in `.env` or 
 | `SRE_TIMEZONE` | `UTC` | Clock display timezone — any [IANA tz string](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (e.g. `America/New_York`, `Europe/Berlin`). Run `timedatectl list-timezones` to list all valid values |
 | `SRE_WINDOW` | `28d` | Prometheus evaluation window for SLO and error budget queries. Day format only (e.g. `7d`, `14d`, `30d`) |
 | `SRE_FAVICON` | `/favicon.png` | URL to a custom favicon **and** sidebar logo. To serve a local file, mount it into the container at `frontend/dist/<name>` and set this to `/<name>` |
+| `SRE_ACCENT` | `#caff04` | Override UI accent color. 6-digit hex string (e.g. `#3b82f6`). Applied at runtime — no rebuild needed. |
 
 **Example `.env`:**
 

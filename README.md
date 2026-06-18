@@ -94,11 +94,11 @@ queries:
 
 ---
 
-## Learn Mode
+## Panel tooltips & Tour
 
-Toggle the **`? Learn`** button in the top bar to enable concept tooltips on every panel. Hover over any `?` badge to see what the metric means, how it's computed, and a link to the [CONCEPTS.md](./CONCEPTS.md) primer.
+Every panel has a lightbulb icon — hover (or tap on mobile) to see what the metric means, how it's computed, and a link to the [CONCEPTS.md](./CONCEPTS.md) primer.
 
-Useful for engineers new to SRE, or for walkthroughs with stakeholders.
+Click **Tour** in the top bar for a guided walkthrough of the full dashboard.
 
 ---
 
@@ -123,6 +123,7 @@ Injected at serve time — no rebuild required.
 | `SRE_TIMEZONE` | `UTC` | Clock display timezone — any IANA string (e.g. `America/New_York`). Run `timedatectl list-timezones` or see [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
 | `SRE_WINDOW` | `28d` | SLO and error budget evaluation window — day format only (e.g. `7d`, `30d`) |
 | `SRE_FAVICON` | `/favicon.png` | URL to a custom favicon **and** sidebar logo. To serve a local file, mount it into `frontend/dist/` and reference it by path |
+| `SRE_ACCENT` | `#caff04` | Override UI accent color. 6-digit hex string (e.g. `#3b82f6`). Applied at runtime — no rebuild needed. |
 
 ```bash
 # .env example

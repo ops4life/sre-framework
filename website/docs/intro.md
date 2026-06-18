@@ -72,6 +72,8 @@ Set `PROMETHEUS_URL` and `SRE_CONFIG_FILE` in your `.env` (see `.env.example`).
 
 ---
 
-## Learn Mode
+## Panel tooltips & Tour
 
-Toggle the **`? Learn`** button in the top bar to enable concept tooltips on every panel. Hover over any `?` badge to see what the metric means, how it's computed, and links to the [SRE Concepts](/docs/concepts/) primer.
+Every panel has a lightbulb icon — hover (or tap on mobile) to see what the metric means, how it's computed, and links to the [SRE Concepts](/docs/concepts/) primer.
+
+Click **Tour** in the top bar for a guided walkthrough of the full dashboard.

@@ -23,11 +23,11 @@ pytest
 3. Verify the demo stack renders the new provider's panels correctly.
 4. Add the preset to the table in `README.md`.
 
-## Add an SRE concept (Learn Mode)
+## Add an SRE concept
 
 1. Add an entry to `frontend/src/content/concepts.ts` with `id`, `term`, `plain`, `computedAs`, `anchor`.
 2. Add the corresponding section to `CONCEPTS.md`.
-3. Place `<InfoTip conceptId="your_id" learnMode={learnMode} />` next to the relevant label in the component.
+3. Place `<InfoTip conceptId="your_id" />` next to the relevant label in the component.
 
 ## Code style
 

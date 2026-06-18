@@ -59,7 +59,7 @@ Thin async HTTP client wrapping Prometheus `/api/v1/query` and `/api/v1/query_ra
 
 ## Frontend components
 
-All components are pure display — no fetching, no state beyond UI interaction. Each accepts `learnMode: boolean` and renders `<InfoTip>` overlays when true.
+All components are pure display — no fetching, no state beyond UI interaction. `<InfoTip>` overlays are always rendered on panels; the lightbulb icon activates them on hover or tap.
 
 | Component | Purpose |
 |-----------|---------|
@@ -69,8 +69,12 @@ All components are pure display — no fetching, no state beyond UI interaction.
 | `GoldenSignals` | Latency p99, traffic, errors, saturation gauges |
 | `ErrorBudgetBurn` | Burn rate chart across 1h / 6h / 28d windows |
 | `CapacityGrid` | VPS + container capacity bars |
-| `Sidebar` | Service selector |
-| `TopBar` | Header with Learn Mode toggle |
+| `Sidebar` | Service selector + theme toggle + Customize nav |
+| `TopBar` | Header with system status, Tour button, clock |
+| `TourModal` | Guided tour overlay |
+| `InfoTip` | Panel concept tooltips (hover/tap to open) |
+| `HoverTip` | Inline KPI label tooltips |
+| `CustomizePage` | Accent color + theme settings page |
 
 ## CI pipeline
 
