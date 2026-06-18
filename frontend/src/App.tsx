@@ -96,11 +96,30 @@ export default function App() {
   };
 
   if (!data) {
+    const sidebar = <Sidebar services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} page={page} onSetPage={setPage} accent={accent} />;
+    const mobile = <MobileShell services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} page={page} onSetPage={setPage} />;
+    const bg = <BubbleBackground colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />;
+
+    if (page === 'concepts') {
+      return (
+        <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
+          {bg}{sidebar}{mobile}
+          <main className="page"><ConceptsPage /></main>
+        </div>
+      );
+    }
+    if (page === 'customize') {
+      return (
+        <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
+          {bg}{sidebar}{mobile}
+          <main className="page"><CustomizePage accent={accent} onSetAccent={setAccent} theme={theme} onToggleTheme={toggleTheme} /></main>
+        </div>
+      );
+    }
+
     return (
       <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
-        <BubbleBackground colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
-        <Sidebar services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} page={page} onSetPage={setPage} accent={accent} />
-        <MobileShell services={services} selected={selectedService} onSelect={selectService} theme={theme} onToggleTheme={toggleTheme} page={page} onSetPage={setPage} />
+        {bg}{sidebar}{mobile}
         <main className="page">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: 16 }}>
             {error ? (
