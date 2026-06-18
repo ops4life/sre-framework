@@ -47,7 +47,6 @@ export default function SloTable({ rows, selected }: Props) {
               style={{
                 padding: '12px 8px',
                 borderRadius: 'var(--radius-md)',
-                borderLeft: isSelected ? '4px solid var(--accent)' : '4px solid transparent',
                 background: isSelected ? 'var(--accent-tint)' : 'transparent',
                 transition: 'var(--transition)',
                 cursor: 'pointer'

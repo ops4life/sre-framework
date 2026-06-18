@@ -87,7 +87,7 @@ export default function ErrorBudgetBurn({ burn, selectedService }: Props) {
             {exhaustDays}
           </div>
         </div>
-        <div className="sre-sub-panel" style={{ padding: '12px 14px', borderLeft: `3px solid ${burnPolicy === 'Deploys allowed' ? 'var(--accent)' : RED}` }}>
+        <div className="sre-sub-panel" style={{ padding: '12px 14px' }}>
           <div className="sre-label" style={{ fontSize: 9 }}>Policy</div>
           <div style={{ fontSize: 14, fontWeight: 700, color: burnPolicy === 'Deploys allowed' ? 'var(--text)' : RED, marginTop: 4 }}>
             {burnPolicy}
