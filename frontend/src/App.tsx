@@ -80,13 +80,13 @@ export default function App() {
 
   const bubbleBackground = theme === 'dark'
     ? `linear-gradient(135deg, rgba(${accentRgb},0.22) 0%, rgba(0,0,0,0) 100%)`
-    : `linear-gradient(135deg, rgba(${accentRgb},0.18) 0%, rgba(0,200,255,0.15) 100%)`;
+    : `linear-gradient(135deg, rgba(${accentRgb},0.12) 0%, rgba(0,0,0,0) 100%)`;
 
   const bubbleColors = {
     first: accentRgb,
-    second: '0,160,240',
+    second: accentRgb,
     third: accentRgb,
-    fourth: '110,60,240',
+    fourth: accentRgb,
     fifth: accentRgb,
     sixth: accentRgb,
   };
@@ -94,7 +94,7 @@ export default function App() {
   if (!data) {
     return (
       <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
-        <BubbleBackground interactive colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
+        <BubbleBackground colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
         <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} page={page} onSetPage={setPage} accent={accent} />
         <main className="page">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: 16 }}>
@@ -129,7 +129,7 @@ export default function App() {
 
   return (
     <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
-      <BubbleBackground interactive colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
+      <BubbleBackground colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
       <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} page={page} onSetPage={setPage} accent={accent} />
       <main className="page" style={page === 'customize' ? { padding: 0 } : undefined}>
         {page === 'customize' ? (

@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion, useMotionValue, useSpring, type SpringOptions } from 'motion/react';
+import { motion, type SpringOptions } from 'motion/react';
 import { cn } from '@/lib/utils';
 
 type BubbleColors = {
@@ -33,59 +33,12 @@ function BubbleBackground({
   className,
   children,
   interactive = false,
-  transition = { stiffness: 200, damping: 28 },
+  transition,
   colors = DEFAULT_COLORS,
   ...props
 }: BubbleBackgroundProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   React.useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, transition);
-  const springY = useSpring(mouseY, transition);
-
-  const rectRef = React.useRef<DOMRect | null>(null);
-  const rafIdRef = React.useRef<number | null>(null);
-
-  React.useLayoutEffect(() => {
-    const updateRect = () => {
-      if (containerRef.current) {
-        rectRef.current = containerRef.current.getBoundingClientRect();
-      }
-    };
-    updateRect();
-    const el = containerRef.current;
-    const ro = new ResizeObserver(updateRect);
-    if (el) ro.observe(el);
-    window.addEventListener('resize', updateRect);
-    window.addEventListener('scroll', updateRect, { passive: true });
-    return () => {
-      ro.disconnect();
-      window.removeEventListener('resize', updateRect);
-      window.removeEventListener('scroll', updateRect);
-    };
-  }, []);
-
-  React.useEffect(() => {
-    if (!interactive) return;
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = rectRef.current;
-      if (!rect) return;
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      if (rafIdRef.current != null) cancelAnimationFrame(rafIdRef.current);
-      rafIdRef.current = requestAnimationFrame(() => {
-        mouseX.set(e.clientX - centerX);
-        mouseY.set(e.clientY - centerY);
-      });
-    };
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (rafIdRef.current != null) cancelAnimationFrame(rafIdRef.current);
-    };
-  }, [interactive, mouseX, mouseY]);
 
   const blobBase: React.CSSProperties = {
     position: 'absolute',
@@ -108,18 +61,7 @@ function BubbleBackground({
       }}
       {...props}
     >
-
-      <svg xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0, width: 0, height: 0 }}>
-        <defs>
-          <filter id="bubble-goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -6" result="goo" />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
-        </defs>
-      </svg>
-
-      <div style={{ position: 'absolute', inset: 0, filter: 'url(#bubble-goo) blur(20px)' }}>
+      <div style={{ position: 'absolute', inset: 0, filter: 'blur(80px)' }}>
         {/* Blob 1 — bounces vertically */}
         <motion.div
           style={{
@@ -128,10 +70,10 @@ function BubbleBackground({
             height: '80%',
             top: '10%',
             left: '10%',
-            background: `radial-gradient(circle at center, rgba(${colors.first},0.7) 0%, rgba(${colors.first},0) 70%)`,
+            background: `radial-gradient(circle at center, rgba(${colors.first},0.12) 0%, rgba(${colors.first},0) 70%)`,
           }}
-          animate={{ y: [-50, 50, -50] }}
-          transition={{ duration: 30, ease: 'easeInOut', repeat: Infinity }}
+          animate={{ y: [-60, 60, -60] }}
+          transition={{ duration: 80, ease: 'easeInOut', repeat: Infinity }}
         />
 
         {/* Blob 2 — orbits */}
@@ -146,15 +88,15 @@ function BubbleBackground({
             transform: 'translateZ(0)',
             willChange: 'transform',
           }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 100, ease: 'linear', repeat: Infinity }}
         >
           <div style={{
             ...blobBase,
             position: 'relative',
             width: '80%',
             height: '80%',
-            background: `radial-gradient(circle at center, rgba(${colors.second},0.7) 0%, rgba(${colors.second},0) 70%)`,
+            background: `radial-gradient(circle at center, rgba(${colors.second},0.1) 0%, rgba(${colors.second},0) 70%)`,
           }} />
         </motion.div>
 
@@ -170,8 +112,8 @@ function BubbleBackground({
             transform: 'translateZ(0)',
             willChange: 'transform',
           }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, ease: 'linear', repeat: Infinity }}
+          animate={{ rotate: [360, 0] }}
+          transition={{ duration: 120, ease: 'linear', repeat: Infinity }}
         >
           <div style={{
             ...blobBase,
@@ -179,7 +121,7 @@ function BubbleBackground({
             height: '80%',
             top: 'calc(50% + 200px)',
             left: 'calc(50% - 500px)',
-            background: `radial-gradient(circle at center, rgba(${colors.third},0.7) 0%, rgba(${colors.third},0) 70%)`,
+            background: `radial-gradient(circle at center, rgba(${colors.third},0.12) 0%, rgba(${colors.third},0) 70%)`,
           }} />
         </motion.div>
 
@@ -191,10 +133,10 @@ function BubbleBackground({
             height: '80%',
             top: '10%',
             left: '10%',
-            background: `radial-gradient(circle at center, rgba(${colors.fourth},0.7) 0%, rgba(${colors.fourth},0) 70%)`,
+            background: `radial-gradient(circle at center, rgba(${colors.fourth},0.08) 0%, rgba(${colors.fourth},0) 70%)`,
           }}
-          animate={{ x: [-50, 50, -50] }}
-          transition={{ duration: 40, ease: 'easeInOut', repeat: Infinity }}
+          animate={{ x: [-80, 80, -80] }}
+          transition={{ duration: 90, ease: 'easeInOut', repeat: Infinity }}
         />
 
         {/* Blob 5 — large, slow orbit */}
@@ -209,8 +151,8 @@ function BubbleBackground({
             transform: 'translateZ(0)',
             willChange: 'transform',
           }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, ease: 'linear', repeat: Infinity }}
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 140, ease: 'linear', repeat: Infinity }}
         >
           <div style={{
             ...blobBase,
@@ -218,23 +160,9 @@ function BubbleBackground({
             height: '160%',
             top: 'calc(50% - 80%)',
             left: 'calc(50% - 80%)',
-            background: `radial-gradient(circle at center, rgba(${colors.fifth},0.7) 0%, rgba(${colors.fifth},0) 70%)`,
+            background: `radial-gradient(circle at center, rgba(${colors.fifth},0.1) 0%, rgba(${colors.fifth},0) 70%)`,
           }} />
         </motion.div>
-
-        {/* Blob 6 — interactive cursor follower */}
-        {interactive && (
-          <motion.div
-            style={{
-              ...blobBase,
-              width: '100%',
-              height: '100%',
-              background: `radial-gradient(circle at center, rgba(${colors.sixth},0.7) 0%, rgba(${colors.sixth},0) 70%)`,
-              x: springX,
-              y: springY,
-            }}
-          />
-        )}
       </div>
 
       {children}
