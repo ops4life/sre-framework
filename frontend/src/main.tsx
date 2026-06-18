@@ -2,7 +2,21 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { config } from './lib/config';
 import App from './App';
+import * as Sentry from '@sentry/react';
 import './styles/globals.css';
+
+if (config.sentry_dsn) {
+  Sentry.init({
+    dsn: config.sentry_dsn,
+    integrations: [
+      Sentry.browserTracingIntegration(),
+      Sentry.replayIntegration(),
+    ],
+    tracesSampleRate: 1.0,
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1.0,
+  });
+}
 
 document.title = config.title;
 document.querySelectorAll<HTMLLinkElement>('link[rel="icon"]').forEach(el => {
@@ -20,8 +34,18 @@ if (config.accent && /^#[0-9a-fA-F]{6}$/.test(config.accent)) {
   root.style.setProperty('--accent-rgb', `${r}, ${g}, ${b}`);
 }
 
-createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root')!;
+const rootOptions: Parameters<typeof createRoot>[1] = {};
+
+if (config.sentry_dsn) {
+  rootOptions.onUncaughtError = Sentry.reactErrorHandler();
+  rootOptions.onCaughtError = Sentry.reactErrorHandler();
+  rootOptions.onRecoverableError = Sentry.reactErrorHandler();
+}
+
+createRoot(container, rootOptions).render(
   <StrictMode>
     <App />
   </StrictMode>
 );
+

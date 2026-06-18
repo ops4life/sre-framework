@@ -4,6 +4,7 @@ interface SreConfig {
   window: string;
   favicon: string;
   accent: string;
+  sentry_dsn?: string;
 }
 
 const defaults: SreConfig = {
@@ -12,6 +13,8 @@ const defaults: SreConfig = {
   window: '28d',
   favicon: '/favicon.png',
   accent: '',
+  sentry_dsn: '',
 };
 
 export const config: SreConfig = (window as Window & { __SRE_CONFIG__?: SreConfig }).__SRE_CONFIG__ ?? defaults;
+

@@ -2,11 +2,20 @@ import json
 import os
 import re
 
+import sentry_sdk
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from . import metrics
+
+# Initialize Sentry if DSN is provided
+sentry_dsn = os.getenv("SENTRY_DSN")
+if sentry_dsn:
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        traces_sample_rate=float(os.getenv("SENTRY_TRACES_SAMPLE_RATE", "1.0")),
+    )
 
 app = FastAPI()
 
@@ -16,7 +25,9 @@ _SRE_CONFIG = {
     "window": os.getenv("SRE_WINDOW", "28d"),
     "favicon": os.getenv("SRE_FAVICON", "/favicon.png"),
     "accent": os.getenv("SRE_ACCENT", ""),
+    "sentry_dsn": os.getenv("SENTRY_FRONTEND_DSN") or os.getenv("SENTRY_DSN", ""),
 }
+
 
 if os.path.isdir("frontend/dist/assets"):
     app.mount("/assets", StaticFiles(directory="frontend/dist/assets"), name="frontend-assets")
