@@ -33,7 +33,7 @@ function BubbleBackground({
   className,
   children,
   interactive = false,
-  transition = { stiffness: 100, damping: 20 },
+  transition = { stiffness: 200, damping: 28 },
   colors = DEFAULT_COLORS,
   ...props
 }: BubbleBackgroundProps) {
@@ -69,8 +69,6 @@ function BubbleBackground({
 
   React.useEffect(() => {
     if (!interactive) return;
-    const el = containerRef.current;
-    if (!el) return;
     const handleMouseMove = (e: MouseEvent) => {
       const rect = rectRef.current;
       if (!rect) return;
@@ -82,9 +80,9 @@ function BubbleBackground({
         mouseY.set(e.clientY - centerY);
       });
     };
-    el.addEventListener('mousemove', handleMouseMove as EventListener, { passive: true });
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => {
-      el.removeEventListener('mousemove', handleMouseMove as EventListener);
+      window.removeEventListener('mousemove', handleMouseMove);
       if (rafIdRef.current != null) cancelAnimationFrame(rafIdRef.current);
     };
   }, [interactive, mouseX, mouseY]);
@@ -92,7 +90,6 @@ function BubbleBackground({
   const blobBase: React.CSSProperties = {
     position: 'absolute',
     borderRadius: '50%',
-    mixBlendMode: 'hard-light',
     transform: 'translateZ(0)',
     willChange: 'transform',
   };
@@ -107,28 +104,22 @@ function BubbleBackground({
         width: '100%',
         height: '100%',
         overflow: 'hidden',
-        '--bubble-first': colors.first,
-        '--bubble-second': colors.second,
-        '--bubble-third': colors.third,
-        '--bubble-fourth': colors.fourth,
-        '--bubble-fifth': colors.fifth,
-        '--bubble-sixth': colors.sixth,
         ...props.style,
-      } as React.CSSProperties}
+      }}
       {...props}
     >
 
       <svg xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: 0, left: 0, width: 0, height: 0 }}>
         <defs>
           <filter id="bubble-goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -6" result="goo" />
             <feBlend in="SourceGraphic" in2="goo" />
           </filter>
         </defs>
       </svg>
 
-      <div style={{ position: 'absolute', inset: 0, filter: 'url(#bubble-goo) blur(50px)' }}>
+      <div style={{ position: 'absolute', inset: 0, filter: 'url(#bubble-goo) blur(20px)' }}>
         {/* Blob 1 — bounces vertically */}
         <motion.div
           style={{
@@ -137,7 +128,7 @@ function BubbleBackground({
             height: '80%',
             top: '10%',
             left: '10%',
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-first),0.35) 0%, rgba(var(--bubble-first),0) 50%)',
+            background: `radial-gradient(circle at center, rgba(${colors.first},0.7) 0%, rgba(${colors.first},0) 70%)`,
           }}
           animate={{ y: [-50, 50, -50] }}
           transition={{ duration: 30, ease: 'easeInOut', repeat: Infinity }}
@@ -163,7 +154,7 @@ function BubbleBackground({
             position: 'relative',
             width: '80%',
             height: '80%',
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-second),0.35) 0%, rgba(var(--bubble-second),0) 50%)',
+            background: `radial-gradient(circle at center, rgba(${colors.second},0.7) 0%, rgba(${colors.second},0) 70%)`,
           }} />
         </motion.div>
 
@@ -188,7 +179,7 @@ function BubbleBackground({
             height: '80%',
             top: 'calc(50% + 200px)',
             left: 'calc(50% - 500px)',
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-third),0.35) 0%, rgba(var(--bubble-third),0) 50%)',
+            background: `radial-gradient(circle at center, rgba(${colors.third},0.7) 0%, rgba(${colors.third},0) 70%)`,
           }} />
         </motion.div>
 
@@ -200,8 +191,7 @@ function BubbleBackground({
             height: '80%',
             top: '10%',
             left: '10%',
-            opacity: 0.7,
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-fourth),0.35) 0%, rgba(var(--bubble-fourth),0) 50%)',
+            background: `radial-gradient(circle at center, rgba(${colors.fourth},0.7) 0%, rgba(${colors.fourth},0) 70%)`,
           }}
           animate={{ x: [-50, 50, -50] }}
           transition={{ duration: 40, ease: 'easeInOut', repeat: Infinity }}
@@ -228,7 +218,7 @@ function BubbleBackground({
             height: '160%',
             top: 'calc(50% - 80%)',
             left: 'calc(50% - 80%)',
-            background: 'radial-gradient(circle at center, rgba(var(--bubble-fifth),0.35) 0%, rgba(var(--bubble-fifth),0) 50%)',
+            background: `radial-gradient(circle at center, rgba(${colors.fifth},0.7) 0%, rgba(${colors.fifth},0) 70%)`,
           }} />
         </motion.div>
 
@@ -239,8 +229,7 @@ function BubbleBackground({
               ...blobBase,
               width: '100%',
               height: '100%',
-              opacity: 0.7,
-              background: 'radial-gradient(circle at center, rgba(var(--bubble-sixth),0.35) 0%, rgba(var(--bubble-sixth),0) 50%)',
+              background: `radial-gradient(circle at center, rgba(${colors.sixth},0.7) 0%, rgba(${colors.sixth},0) 70%)`,
               x: springX,
               y: springY,
             }}

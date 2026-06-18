@@ -84,11 +84,11 @@ export default function App() {
 
   const bubbleColors = {
     first: accentRgb,
-    second: '0,0,0',
+    second: '0,160,240',
     third: accentRgb,
-    fourth: '0,0,0',
+    fourth: '110,60,240',
     fifth: accentRgb,
-    sixth: '0,0,0',
+    sixth: accentRgb,
   };
 
   if (!data) {
