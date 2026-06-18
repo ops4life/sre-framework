@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.10.0](https://github.com/ops4life/sre-framework/compare/v1.9.0...v1.10.0) (2026-06-18)
+
+
+### Features
+
+* **ui:** add runtime accent customization with dedicated page ([19bc439](https://github.com/ops4life/sre-framework/commit/19bc43906de8a298079ae2653007c232b35dd6e8))
+
 # [1.9.0](https://github.com/ops4life/sre-framework/compare/v1.8.0...v1.9.0) (2026-06-18)
 
 
