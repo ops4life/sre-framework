@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.16.0](https://github.com/ops4life/sre-framework/compare/v1.15.0...v1.16.0) (2026-06-18)
+
+
+### Features
+
+* enhance Concept Page with interactive SLO/Error Budget simulator and Golden Signals visualizations ([a2f7a03](https://github.com/ops4life/sre-framework/commit/a2f7a039726376eef8d92fa79e9e11033553f9de))
+
 # [1.15.0](https://github.com/ops4life/sre-framework/compare/v1.14.0...v1.15.0) (2026-06-18)
 
 
