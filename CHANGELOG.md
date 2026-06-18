@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.14.0](https://github.com/ops4life/sre-framework/compare/v1.13.2...v1.14.0) (2026-06-18)
+
+
+### Features
+
+* add SRE_STEP env var for configurable chart resolution ([594c043](https://github.com/ops4life/sre-framework/commit/594c04329e89e5fbc62abb293d241bac11e06bc6))
+
 ## [1.13.2](https://github.com/ops4life/sre-framework/compare/v1.13.1...v1.13.2) (2026-06-18)
 
 
