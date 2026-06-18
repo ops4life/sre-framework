@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.8.0](https://github.com/ops4life/sre-framework/compare/v1.7.1...v1.8.0) (2026-06-18)
+
+
+### Features
+
+* **ui:** replace static SVG icons with animate-ui animated icons ([8aad180](https://github.com/ops4life/sre-framework/commit/8aad180eb28a8880af00b586c351d331ce209cf0))
+* **ui:** replace tour button static arrow with animated Play icon ([ef45bc4](https://github.com/ops4life/sre-framework/commit/ef45bc40c11cb7dbeffc40abd2147447ab239e77))
+
 ## [1.7.1](https://github.com/ops4life/sre-framework/compare/v1.7.0...v1.7.1) (2026-06-17)
 
 
