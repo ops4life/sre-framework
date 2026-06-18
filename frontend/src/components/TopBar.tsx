@@ -25,7 +25,9 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
 
   const sloAttainmentTip = useHoverTip('slo_attainment');
   const windowTip = useHoverTip('window');
-  const resolutionTip = useHoverTip('resolution');
+  const resolutionTip = useHoverTip('resolution', {
+    plain: `The lookback step size for metrics calculations. A ${config.step} resolution rate calculates data points using rolling ${config.step} intervals.`,
+  });
 
   return (
     <div style={{ marginBottom: 36 }}>
@@ -197,7 +199,7 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
             {...resolutionTip.handlers}
           >
             {resolutionTip.tooltip}
-            Live · 5m resolution
+            Live · {config.step} resolution
           </div>
         </div>
       </div>

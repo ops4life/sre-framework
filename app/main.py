@@ -23,6 +23,7 @@ _SRE_CONFIG = {
     "title": os.getenv("SRE_TITLE", "SRE Ops — Mission Control"),
     "timezone": os.getenv("SRE_TIMEZONE", "UTC"),
     "window": os.getenv("SRE_WINDOW", "28d"),
+    "step": os.getenv("SRE_STEP", "5m"),
     "favicon": os.getenv("SRE_FAVICON", "/favicon.png"),
     "accent": os.getenv("SRE_ACCENT", ""),
     "sentry_dsn": os.getenv("SENTRY_FRONTEND_DSN") or os.getenv("SENTRY_DSN", ""),

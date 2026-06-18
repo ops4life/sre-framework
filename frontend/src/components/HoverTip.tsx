@@ -4,9 +4,9 @@ import { concepts } from '../content/concepts';
 
 interface TipPos { top: number; left: number }
 
-export function useHoverTip(conceptId: string) {
+export function useHoverTip(conceptId: string, overrides?: Partial<typeof concepts[string]>) {
   const [pos, setPos] = useState<TipPos | null>(null);
-  const concept = concepts[conceptId];
+  const concept = concepts[conceptId] ? { ...concepts[conceptId], ...overrides } : undefined;
 
   const handlers = {
     onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {

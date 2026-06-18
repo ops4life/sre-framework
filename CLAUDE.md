@@ -60,11 +60,13 @@ Set in `.env` or Docker environment. No rebuild needed — values are injected i
 | `SRE_TITLE` | `SRE Ops — Mission Control` | Browser `<title>` and dashboard H1 |
 | `SRE_TIMEZONE` | `UTC` | Clock display (IANA string, e.g. `America/New_York`) |
 | `SRE_WINDOW` | `28d` | Prometheus evaluation window; day format only (e.g. `7d`, `30d`) |
+| `SRE_STEP` | `5m` | Prometheus query step / chart resolution. Format: `Xm` or `Xh` (e.g. `1m`, `15m`, `1h`). Also shown in the TopBar "Live · Xm resolution" badge. |
 | `SRE_FAVICON` | `/favicon.png` | Override browser favicon **and** sidebar logo. To serve a local file, mount it into `frontend/dist/` (e.g. `./my-logo.svg:/app/frontend/dist/my-logo.svg:ro`) and set this var to `/my-logo.svg` |
 | `SRE_ACCENT` | *(lime `#caff04`)* | Override the UI accent color. Must be a 6-digit hex string (e.g. `#3b82f6`). Applied at runtime — no rebuild needed. |
 
 - **`lib/config.ts`** — reads `window.__SRE_CONFIG__` with defaults fallback; imported by `App.tsx`, `TopBar.tsx`, `main.tsx`.
 - `SRE_WINDOW` is also read by `metrics.py` (`_window()`) for Prometheus query construction.
+- `SRE_STEP` is also read by `metrics.py` (`_step()`) for range query step and chart window (`40 × step_secs`).
 
 ### CI
 

@@ -33,6 +33,7 @@ Set in `docker-compose.yml` under `sre.environment`. No rebuild required — val
 | `SRE_TITLE` | `SRE Ops — Mission Control` | Browser tab title and dashboard heading |
 | `SRE_TIMEZONE` | `Asia/Ho_Chi_Minh` | Clock display timezone (IANA string). Run `timedatectl list-timezones` for valid values |
 | `SRE_WINDOW` | `28d` | SLO evaluation window — day format only (e.g. `7d`, `30d`) |
+| `SRE_STEP` | `2m` | Prometheus query step / chart resolution. Format: `Xm` or `Xh` (e.g. `1m`, `5m`, `1h`). Also shown in the TopBar "Live · X resolution" badge |
 | `SRE_FAVICON` | `/favicon.svg` | URL to a custom favicon **and** sidebar logo. `demo/favicon.svg` is mounted into `frontend/dist/favicon.svg` — replace that file to change the logo |
 
 ## Ports

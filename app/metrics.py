@@ -12,6 +12,15 @@ def _window() -> tuple[int, str]:
     return int(raw[:-1]), raw
 
 
+def _step() -> tuple[int, str]:
+    raw = os.getenv("SRE_STEP", "5m")
+    if raw.endswith("m") and raw[:-1].isdigit():
+        return int(raw[:-1]) * 60, raw
+    if raw.endswith("h") and raw[:-1].isdigit():
+        return int(raw[:-1]) * 3600, raw
+    raise ValueError(f"SRE_STEP must be like '5m' or '1h', got: {raw!r}")
+
+
 def _scalar(result: list[dict]) -> float | None:
     if not result:
         return None
@@ -78,8 +87,9 @@ async def get_golden_signals(svc: dict) -> dict:
     config = cfg.load_config()
     latency_unit = config["latency_unit"]
 
+    step_secs, step_str = _step()
     now = time.time()
-    start = now - 40 * 300  # ~40 points at 5m step
+    start = now - 40 * step_secs  # ~40 points
 
     req_rate = await _query_scalar("request_rate", labels)
     p99_raw = await _query_scalar("latency_p99", labels)
@@ -90,7 +100,7 @@ async def get_golden_signals(svc: dict) -> dict:
         round(p99_raw, 1) if p99_raw is not None else None
     )
 
-    lat_series_raw = await _query_series("latency_p99", labels, start, now, "5m")
+    lat_series_raw = await _query_series("latency_p99", labels, start, now, step_str)
     lat_series = [v * 1000 for v in lat_series_raw] if latency_unit == "seconds" else lat_series_raw
 
     return {
@@ -100,9 +110,9 @@ async def get_golden_signals(svc: dict) -> dict:
         "saturation_pct": round(saturation, 1) if saturation is not None else None,
         "series": {
             "latency_p99_ms": lat_series,
-            "request_rate": await _query_series("request_rate", labels, start, now, "5m"),
-            "error_rate_pct": await _query_series("error_rate", labels, start, now, "5m"),
-            "saturation_pct": await _query_series("saturation", labels, start, now, "5m"),
+            "request_rate": await _query_series("request_rate", labels, start, now, step_str),
+            "error_rate_pct": await _query_series("error_rate", labels, start, now, step_str),
+            "saturation_pct": await _query_series("saturation", labels, start, now, step_str),
         },
     }
 

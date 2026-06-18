@@ -40,6 +40,7 @@ services:
       SRE_TIMEZONE: Asia/Ho_Chi_Minh
       SRE_WINDOW: 30d
       SRE_FAVICON: /favicon.svg
+      SRE_STEP: 2m
     volumes:
       - ./sre.demo.yaml:/app/demo/sre.demo.yaml:ro
       - ./favicon.svg:/app/frontend/dist/favicon.svg:ro  # replaces browser favicon + sidebar logo (SRE_FAVICON)

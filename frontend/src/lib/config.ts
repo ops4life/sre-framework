@@ -2,6 +2,7 @@ interface SreConfig {
   title: string;
   timezone: string;
   window: string;
+  step: string;
   favicon: string;
   accent: string;
   sentry_dsn?: string;
@@ -11,6 +12,7 @@ const defaults: SreConfig = {
   title: 'SRE Ops — Mission Control',
   timezone: 'UTC',
   window: '28d',
+  step: '5m',
   favicon: '/favicon.png',
   accent: '',
   sentry_dsn: '',
