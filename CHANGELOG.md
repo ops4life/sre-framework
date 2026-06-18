@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.11.0](https://github.com/ops4life/sre-framework/compare/v1.10.1...v1.11.0) (2026-06-18)
+
+
+### Features
+
+* **ui:** make bubble background smooth and non-distracting ([de5b1bf](https://github.com/ops4life/sre-framework/commit/de5b1bf6cb8333b43ec2a6d01b0c25546a2898b7))
+
 ## [1.10.1](https://github.com/ops4life/sre-framework/compare/v1.10.0...v1.10.1) (2026-06-18)
 
 
