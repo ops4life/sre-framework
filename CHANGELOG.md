@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.12.0](https://github.com/ops4life/sre-framework/compare/v1.11.0...v1.12.0) (2026-06-18)
+
+
+### Features
+
+* **ui:** replace learn mode with panel hover tooltips ([e98fa07](https://github.com/ops4life/sre-framework/commit/e98fa07ca8811ce1bd495ae97baccca0786a9480))
+
 # [1.11.0](https://github.com/ops4life/sre-framework/compare/v1.10.1...v1.11.0) (2026-06-18)
 
 
