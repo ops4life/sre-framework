@@ -1,6 +1,5 @@
 import type { ErrorBudgetBurn as ErrorBudgetBurnData } from '../types';
 import { fmt, spark, area } from '../lib/format';
-import HoverTip from './HoverTip';
 
 const RED = 'var(--danger)';
 
@@ -27,8 +26,6 @@ export default function ErrorBudgetBurn({ burn, selectedService }: Props) {
         <div>
           <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' }}>
             Error Budget Burn — {selectedService}
-            <HoverTip conceptId="error_budget" />
-            <HoverTip conceptId="burn_rate" />
           </h2>
           <p style={{ margin: '6px 0 0', fontSize: 12, color: 'var(--muted)' }}>
             {burn.target}% target · {burn.budget_pct.toFixed(2)}% budget / 28d
@@ -69,7 +66,7 @@ export default function ErrorBudgetBurn({ burn, selectedService }: Props) {
         borderTop: '1px solid var(--border)'
       }}>
         <div className="sre-sub-panel" style={{ padding: '12px 14px' }}>
-          <div className="sre-label" style={{ fontSize: 9 }}>Burn rate (1h)<HoverTip conceptId="burn_rate" /></div>
+          <div className="sre-label" style={{ fontSize: 9 }}>Burn rate (1h)</div>
           <div style={{ fontFamily: 'var(--mono)', fontSize: 16, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>
             {burn.burn_rate_1h !== null ? `${burn.burn_rate_1h}×` : '—'}
           </div>

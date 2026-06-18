@@ -1,6 +1,5 @@
 import type { Capacity } from '../types';
 import { fmt } from '../lib/format';
-import HoverTip from './HoverTip';
 
 const GREEN = 'var(--green)';
 const AMBER = 'var(--amber)';
@@ -25,7 +24,6 @@ export default function CapacityGrid({ capacity, selectedService }: Props) {
         <div>
           <h2 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.01em' }}>
             Capacity
-            <HoverTip conceptId="capacity" />
           </h2>
           <p style={{ margin: '5px 0 0', fontSize: 12, color: 'var(--muted)' }}>VPS + {selectedService} container resource usage</p>
         </div>

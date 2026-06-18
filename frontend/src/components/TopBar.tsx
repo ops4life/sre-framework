@@ -88,7 +88,7 @@ export default function TopBar({ allHealthy, error, clock, selectedService, tour
           )}
         </div>
 
-        {/* Right: learn toggle + date/clock */}
+        {/* Right: tour + date/clock */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
           <button
             onClick={onStartTour}

@@ -1,121 +1,75 @@
-import { useState } from 'react';
 import type { Theme } from '../hooks/useTheme';
+
+const SWATCHES = [
+  '#caff04', '#00d4ff', '#a855f7', '#f97316',
+  '#ec4899', '#22c55e', '#f43f5e', '#06b6d4',
+  '#fbbf24', '#3b82f6',
+];
 
 interface Props {
   accent: string;
   onSetAccent: (hex: string) => void;
   theme: Theme;
+  onToggleTheme: () => void;
 }
 
-const PRESETS = [
-  { hex: '#caff04', label: 'Lime' },
-  { hex: '#3b82f6', label: 'Blue' },
-  { hex: '#a855f7', label: 'Purple' },
-  { hex: '#f97316', label: 'Orange' },
-  { hex: '#ec4899', label: 'Pink' },
-  { hex: '#22c55e', label: 'Green' },
-  { hex: '#f43f5e', label: 'Rose' },
-  { hex: '#06b6d4', label: 'Cyan' },
-];
-
-function hexToRgb(hex: string) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return { r, g, b };
-}
-
-function luminance(hex: string) {
-  const { r, g, b } = hexToRgb(hex);
-  return 0.299 * r + 0.587 * g + 0.114 * b;
-}
-
-export default function CustomizePage({ accent, onSetAccent, theme }: Props) {
-  const [input, setInput] = useState('');
-  const [inputError, setInputError] = useState(false);
-
+export default function CustomizePage({ accent, onSetAccent, theme, onToggleTheme }: Props) {
   const validAccent = /^#[0-9a-fA-F]{6}$/.test(accent) ? accent : '#caff04';
-  const textOnAccent = luminance(validAccent) > 140 ? '#0b0d0c' : '#ffffff';
-
-  const handleCommit = () => {
-    const v = input.trim();
-    if (/^#[0-9a-fA-F]{6}$/.test(v)) {
-      onSetAccent(v);
-      setInput('');
-      setInputError(false);
-    } else {
-      setInputError(true);
-      setTimeout(() => setInputError(false), 1200);
-    }
-  };
-
-  const cardBg = theme === 'dark' ? 'rgba(16,18,19,0.72)' : 'rgba(255,255,255,0.72)';
-  const cardBorder = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const isCustom = !SWATCHES.includes(validAccent.toLowerCase()) && !SWATCHES.includes(validAccent);
 
   return (
-    <div className="customize-page" style={{ background: validAccent }}>
-      <div
-        className="customize-card"
-        style={{ background: cardBg, border: `1px solid ${cardBorder}` }}
-      >
-        <div className="customize-card-header">
-          <div className="customize-swatch-preview" style={{ background: validAccent }}>
-            <span style={{ color: textOnAccent, fontFamily: 'var(--mono)', fontSize: 11, fontWeight: 600, letterSpacing: '0.08em' }}>
-              {validAccent.toUpperCase()}
-            </span>
+    <div className="cz-page">
+      <div className="slide-up" style={{ maxWidth: 480, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="cz-page-head">
+          <div className="cz-page-title">Customize</div>
+          <div className="cz-page-sub">// theme · accent color</div>
+        </div>
+
+        <div className="cz-card">
+          <div className="cz-card-head">
+            <span className="cz-pre">▍</span> Appearance
           </div>
-          <div>
-            <div style={{ fontFamily: 'var(--display)', fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text)' }}>Accent Color</div>
-            <div style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--muted)', marginTop: 4 }}>
-              Applied to buttons, highlights, and interactive elements
+          <div className="cz-list">
+            <div className="cz-row">
+              <span className="cz-row-label">Theme</span>
+              <span style={{ flex: 1 }} />
+              <div className="cz-seg">
+                <button className={`cz-seg-opt${theme === 'dark' ? ' active' : ''}`} onClick={() => theme === 'light' && onToggleTheme()}>Dark</button>
+                <button className={`cz-seg-opt${theme === 'light' ? ' active' : ''}`} onClick={() => theme === 'dark' && onToggleTheme()}>Light</button>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div className="customize-section-label">Presets</div>
-        <div className="customize-presets">
-          {PRESETS.map(p => (
-            <button
-              key={p.hex}
-              type="button"
-              className={`customize-preset${validAccent.toLowerCase() === p.hex ? ' active' : ''}`}
-              onClick={() => onSetAccent(p.hex)}
-              title={p.label}
-            >
-              <span className="customize-preset-dot" style={{ background: p.hex }} />
-              <span className="customize-preset-label">{p.label}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="customize-section-label" style={{ marginTop: 20 }}>Custom</div>
-        <div className="customize-input-row">
-          <div className="customize-input-preview" style={{ background: /^#[0-9a-fA-F]{6}$/.test(input) ? input : 'var(--surface-3)' }} />
-          <input
-            type="text"
-            className={`customize-hex-input${inputError ? ' error' : ''}`}
-            placeholder="#rrggbb"
-            maxLength={7}
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') handleCommit(); }}
-            spellCheck={false}
-          />
-          <button type="button" className="customize-apply-btn" onClick={handleCommit}>
-            Apply
-          </button>
-        </div>
-
-        <div className="customize-section-label" style={{ marginTop: 24 }}>Preview</div>
-        <div className="customize-preview-row">
-          <button type="button" className="customize-preview-btn" style={{ background: validAccent, color: textOnAccent, border: `1px solid ${validAccent}` }}>
-            Primary Button
-          </button>
-          <div className="customize-preview-badge" style={{ background: `rgba(var(--accent-rgb), 0.15)`, color: validAccent }}>
-            Active state
-          </div>
-          <div style={{ fontFamily: 'var(--mono)', fontSize: 12, color: validAccent }}>
-            Link / accent text
+            <div className="cz-row" style={{ flexWrap: 'wrap', gap: 12 }}>
+              <span className="cz-row-label">Accent</span>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                {SWATCHES.map(c => (
+                  <button
+                    key={c}
+                    className={`cz-swatch${validAccent.toLowerCase() === c.toLowerCase() ? ' on' : ''}`}
+                    style={{ background: c }}
+                    onClick={() => onSetAccent(c)}
+                    aria-label={c}
+                  />
+                ))}
+                <label
+                  className={`cz-swatch cz-swatch-custom${isCustom ? ' on' : ''}`}
+                  style={isCustom ? { background: validAccent } : {}}
+                  title="Custom color"
+                  aria-label="Pick custom accent color"
+                >
+                  <input
+                    type="color"
+                    value={validAccent}
+                    onChange={e => onSetAccent(e.target.value)}
+                    style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }}
+                  />
+                  {!isCustom && (
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                      <path d="M7 2v10M2 7h10" />
+                    </svg>
+                  )}
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>

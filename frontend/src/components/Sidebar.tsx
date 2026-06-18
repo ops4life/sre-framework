@@ -3,6 +3,7 @@ import type { Theme } from '../hooks/useTheme';
 import { Sun } from '@/components/animate-ui/icons/sun';
 import { Moon } from '@/components/animate-ui/icons/moon';
 import { ArrowRight } from '@/components/animate-ui/icons/arrow-right';
+import { SlidersHorizontal } from '@/components/animate-ui/icons/sliders-horizontal';
 
 export type Page = 'dashboard' | 'customize';
 
@@ -35,16 +36,6 @@ function LogoMark() {
   );
 }
 
-function PaletteIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.4" />
-      <circle cx="5" cy="5.5" r="1" fill="currentColor" />
-      <circle cx="9" cy="5.5" r="1" fill="currentColor" />
-      <circle cx="7" cy="9" r="1" fill="currentColor" />
-    </svg>
-  );
-}
 
 export default function Sidebar({ services, selected, onSelect, theme, onToggleTheme, collapsed, onToggleCollapse, mobileOpen, onMobileClose, page, onSetPage, accent }: Props) {
   const effectiveCollapsed = collapsed && !mobileOpen;
@@ -100,7 +91,7 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
             className="sre-sidebar-item-badge"
             style={page !== 'customize' ? { background: accent, color: '#0b0d0c' } : undefined}
           >
-            <PaletteIcon />
+            <SlidersHorizontal animateOnHover size={14} aria-hidden />
           </span>
           {!effectiveCollapsed && <span className="sre-sidebar-item-label">Customize</span>}
         </button>

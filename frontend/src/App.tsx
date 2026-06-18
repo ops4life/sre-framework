@@ -36,7 +36,7 @@ export default function App() {
   const [accent, setAccent] = useAccent();
   const [page, setPage] = useState<Page>('dashboard');
   const [tourOpen, setTourOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -131,9 +131,9 @@ export default function App() {
     <div className={`sre-layout${sidebarCollapsed ? ' collapsed' : ''}`}>
       <BubbleBackground colors={bubbleColors} style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: bubbleBackground }} />
       <Sidebar services={services} selected={selectedService} onSelect={name => { selectService(name); setMobileSidebarOpen(false); }} theme={theme} onToggleTheme={toggleTheme} collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(c => !c)} mobileOpen={mobileSidebarOpen} onMobileClose={() => setMobileSidebarOpen(false)} page={page} onSetPage={setPage} accent={accent} />
-      <main className="page" style={page === 'customize' ? { padding: 0 } : undefined}>
+      <main className="page">
         {page === 'customize' ? (
-          <CustomizePage accent={accent} onSetAccent={setAccent} theme={theme} />
+          <CustomizePage accent={accent} onSetAccent={setAccent} theme={theme} onToggleTheme={toggleTheme} />
         ) : (
           <>
             <TopBar
