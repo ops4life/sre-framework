@@ -115,8 +115,8 @@ function formatExhaustionTime(days: number): string {
 export default function ConceptsPage() {
   const [sloTarget, setSloTarget] = useState(99.9);
   const [simulatorTab, setSimulatorTab] = useState<'outage' | 'burn'>('outage');
-  const [outageDuration, setOutageDuration] = useState(40); // in minutes
-  const [errorRate, setErrorRate] = useState(0.5); // in %
+  const [outageDuration, setOutageDuration] = useState(0); // in minutes
+  const [errorRate, setErrorRate] = useState(0.05); // in %
   const [searchQuery, setSearchQuery] = useState('');
 
   const windowMinutes = 28 * 24 * 60; // 28d window = 40,320 mins
@@ -369,7 +369,7 @@ export default function ConceptsPage() {
                         {/* Middle Text */}
                         <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                           <span style={{ fontSize: 16, fontWeight: 700, fontFamily: 'var(--mono)', color: remainingBudgetPercent <= 0 ? 'var(--danger)' : 'var(--text)' }}>
-                            {remainingBudgetPercent.toFixed(0)}%
+                            {Math.max(0, remainingBudgetPercent).toFixed(0)}%
                           </span>
                           <span style={{ fontSize: 8, textTransform: 'uppercase', letterSpacing: 0.05, color: 'var(--muted)' }}>Budget</span>
                         </div>
@@ -384,7 +384,7 @@ export default function ConceptsPage() {
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                           <span style={{ color: 'var(--muted)' }}>Downtime Burned:</span>
                           <span style={{ fontFamily: 'var(--mono)', fontWeight: 600, color: remainingBudgetPercent <= 0 ? 'var(--danger)' : 'var(--text)' }}>
-                            {budgetBurnedPercent.toFixed(0)}%
+                            {budgetBurnedPercent > 100 ? '> 100%' : `${budgetBurnedPercent.toFixed(0)}%`}
                           </span>
                         </div>
                       </div>
@@ -412,7 +412,7 @@ export default function ConceptsPage() {
                         </svg>
                         <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                           <span style={{ fontSize: 18, fontWeight: 700, fontFamily: 'var(--mono)', color: burnRateMultiplier > 2 ? 'var(--danger)' : burnRateMultiplier > 1 ? 'var(--amber)' : 'var(--green)' }}>
-                            {burnRateMultiplier.toFixed(1)}x
+                            {burnRateMultiplier > 999 ? '> 999x' : `${burnRateMultiplier.toFixed(1)}x`}
                           </span>
                           <span style={{ fontSize: 8, textTransform: 'uppercase', letterSpacing: 0.05, color: 'var(--muted)' }}>Burn Rate</span>
                         </div>
