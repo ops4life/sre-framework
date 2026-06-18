@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.1](https://github.com/ops4life/sre-framework/compare/v1.10.0...v1.10.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* **ui:** make bubble background blobs actually visible and interactive ([6a1e0f3](https://github.com/ops4life/sre-framework/commit/6a1e0f35ae447becc1383a75a60b753ba0b352d4))
+
 # [1.10.0](https://github.com/ops4life/sre-framework/compare/v1.9.0...v1.10.0) (2026-06-18)
 
 
