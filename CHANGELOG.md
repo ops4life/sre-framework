@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.13.0](https://github.com/ops4life/sre-framework/compare/v1.12.1...v1.13.0) (2026-06-18)
+
+
+### Features
+
+* **ui:** devex-style sidebar — plain SVG collapse, mobile shell ([9c4f1dd](https://github.com/ops4life/sre-framework/commit/9c4f1dd613fbbcd9b03af084fa2f5adfcb0e916c))
+
 ## [1.12.1](https://github.com/ops4life/sre-framework/compare/v1.12.0...v1.12.1) (2026-06-18)
 
 
