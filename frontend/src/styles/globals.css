@@ -841,3 +841,85 @@ body {
 .tour-ghost-btn:hover { background: var(--surface-2); }
 .tour-cta { background: var(--accent); border: 1px solid var(--accent); border-radius: var(--radius-sm); padding: 8px 14px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #fff; font-weight: 600; cursor: pointer; }
 .tour-cta:hover { opacity: 0.85; }
+
+/* SRE Concepts Visuals */
+@keyframes highlightPulse {
+  0% {
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px var(--accent);
+  }
+  100% {
+    box-shadow: 0 0 0 2px transparent;
+  }
+}
+
+.highlight-pulse {
+  animation: highlightPulse 2s ease-in-out;
+  border-color: var(--accent) !important;
+}
+
+.concept-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  outline: none;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.concept-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.1s;
+}
+
+.concept-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.concept-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.1s;
+  cursor: pointer;
+}
+
+.concept-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+.concepts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .concepts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.concept-term-card {
+  transition: var(--transition);
+  scroll-margin-top: 100px;
+}
+.concept-term-card:hover {
+  border-color: rgba(var(--accent-rgb), 0.4);
+  transform: translateY(-2px);
+}
+

@@ -36,9 +36,12 @@ export default function App() {
   };
   const [theme, toggleTheme] = useTheme();
   const [accent, setAccent] = useAccent();
-  const [page, setPage] = useState<Page>('dashboard');
+  const [page, setPage] = useState<Page>(() => {
+    if (window.location.pathname.endsWith('/CONCEPTS.md')) return 'concepts';
+    return 'dashboard';
+  });
   const [tourOpen, setTourOpen] = useState(false);
-const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     const clockId = setInterval(() => setClock(fmtClock(config.timezone)), 1000);
