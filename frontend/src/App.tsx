@@ -9,6 +9,7 @@ import type { Page } from './components/Sidebar';
 import MobileShell from './components/MobileShell';
 import TopBar from './components/TopBar';
 import CustomizePage from './pages/CustomizePage';
+import ConceptsPage from './pages/ConceptsPage';
 import TourModal from './components/TourModal';
 import KpiStrip from './components/KpiStrip';
 import SloTable from './components/SloTable';
@@ -136,6 +137,8 @@ const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
       <main className="page">
         {page === 'customize' ? (
           <CustomizePage accent={accent} onSetAccent={setAccent} theme={theme} onToggleTheme={toggleTheme} />
+        ) : page === 'concepts' ? (
+          <ConceptsPage />
         ) : (
           <>
             <TopBar

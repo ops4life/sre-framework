@@ -3,8 +3,9 @@ import type { Theme } from '../hooks/useTheme';
 import { Sun } from '@/components/animate-ui/icons/sun';
 import { Moon } from '@/components/animate-ui/icons/moon';
 import { SlidersHorizontal } from '@/components/animate-ui/icons/sliders-horizontal';
+import { Lightbulb } from '@/components/animate-ui/icons/lightbulb';
 
-export type Page = 'dashboard' | 'customize';
+export type Page = 'dashboard' | 'customize' | 'concepts';
 
 interface Props {
   services: { name: string }[];
@@ -85,6 +86,17 @@ export default function Sidebar({ services, selected, onSelect, theme, onToggleT
             <SlidersHorizontal animateOnHover size={14} aria-hidden />
           </span>
           {!collapsed && <span className="sre-sidebar-item-label">Customize</span>}
+        </button>
+        <button
+          type="button"
+          className={`sre-sidebar-item${page === 'concepts' ? ' active' : ''}`}
+          title={collapsed ? 'Concepts' : ''}
+          onClick={() => onSetPage(page === 'concepts' ? 'dashboard' : 'concepts')}
+        >
+          <span className="sre-sidebar-item-badge">
+            <Lightbulb animateOnHover size={14} aria-hidden />
+          </span>
+          {!collapsed && <span className="sre-sidebar-item-label">Concepts</span>}
         </button>
       </div>
     </nav>
