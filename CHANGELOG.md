@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.17.0](https://github.com/ops4life/sre-framework/compare/v1.16.2...v1.17.0) (2026-06-18)
+
+
+### Features
+
+* **nav:** add Learning Lab to mobile nav and persist active page ([56b8eb3](https://github.com/ops4life/sre-framework/commit/56b8eb3ecb90a7afdcd8b1e82d26aa6e9cf7c360))
+
 ## [1.16.2](https://github.com/ops4life/sre-framework/compare/v1.16.1...v1.16.2) (2026-06-18)
 
 
