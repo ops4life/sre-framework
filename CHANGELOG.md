@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.16.2](https://github.com/ops4life/sre-framework/compare/v1.16.1...v1.16.2) (2026-06-18)
+
+
+### Bug Fixes
+
+* **concepts:** fix sparkline circle distortion and flowchart badges style in mobile ([2b876f4](https://github.com/ops4life/sre-framework/commit/2b876f4ac0b294cb6cce2e6b8303a563027b1619))
+
 ## [1.16.1](https://github.com/ops4life/sre-framework/compare/v1.16.0...v1.16.1) (2026-06-18)
 
 
