@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.15.0](https://github.com/ops4life/sre-framework/compare/v1.14.0...v1.15.0) (2026-06-18)
+
+
+### Features
+
+* **frontend:** add Concepts page with SRE terminology reference ([5579002](https://github.com/ops4life/sre-framework/commit/557900293d7f8e68efdad57fe230c937e4621b10))
+
 # [1.14.0](https://github.com/ops4life/sre-framework/compare/v1.13.2...v1.14.0) (2026-06-18)
 
 
