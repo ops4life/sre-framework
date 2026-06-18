@@ -67,9 +67,9 @@ export default function InfoTip({ conceptId }: Props) {
           boxShadow: 'var(--shadow)',
           ...(ref.current ? (() => {
             const r = ref.current.getBoundingClientRect();
-            const tipW = Math.min(280, window.innerWidth - 24);
-            let left = r.right - tipW;
-            if (left < 12) left = 12;
+            const vw = document.documentElement.clientWidth;
+            const tipW = Math.min(280, vw - 24);
+            const left = Math.max(12, Math.min(r.right - tipW, vw - tipW - 12));
             return { top: r.bottom + 8, left };
           })() : {}),
         }}>
