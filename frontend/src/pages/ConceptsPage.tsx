@@ -67,11 +67,13 @@ function LiveSparkline({ color, baseVal, variance, type }: { color: string, base
         <path d={areaD} fill={`url(#grad-${type})`} />
         <path d={pathD} fill="none" stroke={color} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
         {points.length > 0 && (
-          <circle
-            cx={points[points.length - 1].split(',')[0]}
-            cy={points[points.length - 1].split(',')[1]}
-            r="3"
-            fill={color}
+          <path
+            d={`M ${points[points.length - 1]} L ${points[points.length - 1]}`}
+            fill="none"
+            stroke={color}
+            strokeWidth="6"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
             style={{ filter: `drop-shadow(0 0 2px ${color})` }}
           />
         )}
@@ -492,7 +494,7 @@ export default function ConceptsPage() {
                 
                 {/* Flow Node 1: SLI */}
                 <div className="sre-sub-panel" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px' }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(var(--accent-rgb), 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', color: 'var(--accent)', fontSize: 13 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(var(--accent-rgb), 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: 'var(--accent)', fontSize: 13 }}>
                     1
                   </div>
                   <div>
@@ -509,7 +511,7 @@ export default function ConceptsPage() {
 
                 {/* Flow Node 2: SLO */}
                 <div className="sre-sub-panel" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px' }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(59,130,246, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', color: 'var(--blue)', fontSize: 13 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(59,130,246, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: 'var(--blue)', fontSize: 13 }}>
                     2
                   </div>
                   <div>
@@ -526,7 +528,7 @@ export default function ConceptsPage() {
 
                 {/* Flow Node 3: Error Budget */}
                 <div className="sre-sub-panel" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px' }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(34,197,94, 0.1)', display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', color: 'var(--green)', fontSize: 13 }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(34,197,94, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: 'var(--green)', fontSize: 13 }}>
                     3
                   </div>
                   <div>
