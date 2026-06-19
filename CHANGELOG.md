@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.18.0](https://github.com/ops4life/sre-framework/compare/v1.17.0...v1.18.0) (2026-06-19)
+
+
+### Features
+
+* **demo:** add capacity and saturation metrics generator and config ([a1e7ccd](https://github.com/ops4life/sre-framework/commit/a1e7ccde98f3386f8016ef3108ccee8a16623630))
+
 # [1.17.0](https://github.com/ops4life/sre-framework/compare/v1.16.2...v1.17.0) (2026-06-18)
 
 
