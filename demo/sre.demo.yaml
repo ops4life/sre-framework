@@ -3,6 +3,14 @@
 provider: http
 default_service: api
 
+queries:
+  saturation: 'demo_saturation_percent{{service="{service}"}}'
+  cap_vps_cpu: 'demo_vps_cpu_percent'
+  cap_vps_mem: 'demo_vps_memory_percent'
+  cap_vps_disk: 'demo_vps_disk_percent'
+  cap_container_cpu: 'demo_container_cpu_percent{{service="{service}"}}'
+  cap_container_mem: 'demo_container_memory_percent{{service="{service}"}}'
+
 services:
   - name: frontend
     slo_target: 99.9
