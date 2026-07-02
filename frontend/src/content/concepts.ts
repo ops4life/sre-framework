@@ -94,4 +94,32 @@ export const concepts: Record<string, Concept> = {
     plain: "The lookback step size for metrics calculations. A 5-minute resolution rate calculates data points using rolling 5-minute intervals.",
     anchor: "golden-signals",
   },
+  deployment_frequency: {
+    id: "deployment_frequency",
+    term: "Deployment Frequency",
+    plain: "How often you successfully ship to production. Elite performers deploy on demand, multiple times a day.",
+    computedAs: "successful deploy.yml runs / window days",
+    anchor: "dora-metrics",
+  },
+  lead_time_for_changes: {
+    id: "lead_time_for_changes",
+    term: "Lead Time for Changes",
+    plain: "The median time from a commit landing on main to it being deployed. Shorter lead time means faster feedback loops.",
+    computedAs: "median(deploy run created_at − commit timestamp)",
+    anchor: "dora-metrics",
+  },
+  change_failure_rate: {
+    id: "change_failure_rate",
+    term: "Change Failure Rate",
+    plain: "The percentage of deploys that trigger an incident shortly afterward. Lower is better — it signals your deploys are safe.",
+    computedAs: "deploys followed by a Kuma incident within the correlation window / total deploys × 100",
+    anchor: "dora-metrics",
+  },
+  mean_time_to_recovery: {
+    id: "mean_time_to_recovery",
+    term: "Mean Time to Recovery (MTTR)",
+    plain: "How long it takes to restore service after a deploy-triggered incident. Faster recovery limits the blast radius of bad deploys.",
+    computedAs: "mean(incident duration) for incidents correlated to a deploy",
+    anchor: "dora-metrics",
+  },
 };

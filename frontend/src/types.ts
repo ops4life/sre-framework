@@ -53,3 +53,37 @@ export interface Overview {
   capacity: Capacity;
   generated_at: number;
 }
+
+export type DoraTier = 'elite' | 'high' | 'medium' | 'low';
+
+export interface DeploymentFrequency {
+  deploys_per_day: number;
+  total_deploys: number;
+  tier: DoraTier | null;
+}
+
+export interface LeadTimeForChanges {
+  median_seconds: number | null;
+  sample_size: number;
+  tier: DoraTier | null;
+}
+
+export interface ChangeFailureRate {
+  pct: number | null;
+  tier: DoraTier | null;
+  failed_deploys: number;
+  total_deploys: number;
+}
+
+export interface MeanTimeToRecovery {
+  seconds: number | null;
+  tier: DoraTier | null;
+}
+
+export interface DoraMetrics {
+  deployment_frequency: DeploymentFrequency | null;
+  lead_time_for_changes: LeadTimeForChanges | null;
+  change_failure_rate: ChangeFailureRate | null;
+  mean_time_to_recovery: MeanTimeToRecovery | null;
+  generated_at: number;
+}

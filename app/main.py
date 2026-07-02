@@ -1,13 +1,17 @@
 import json
 import os
 import re
+import time
 
 import sentry_sdk
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from . import metrics
+from . import dora, metrics
+
+DORA_CACHE_TTL_SECONDS = int(os.getenv("SRE_DORA_CACHE_TTL_SECONDS", "300"))
+_dora_cache: dict = {"data": None, "fetched_at": 0.0}
 
 # Initialize Sentry if DSN is provided
 sentry_dsn = os.getenv("SENTRY_DSN")
@@ -42,6 +46,15 @@ async def health():
 @app.get("/api/sre/overview")
 async def overview(service: str | None = None):
     return await metrics.get_overview(service)
+
+
+@app.get("/api/sre/dora")
+async def dora_metrics():
+    now = time.time()
+    if _dora_cache["data"] is None or now - _dora_cache["fetched_at"] > DORA_CACHE_TTL_SECONDS:
+        _dora_cache["data"] = await dora.get_dora_metrics()
+        _dora_cache["fetched_at"] = now
+    return _dora_cache["data"]
 
 
 @app.get("/{full_path:path}")

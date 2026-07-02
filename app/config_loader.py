@@ -37,6 +37,7 @@ def load_config() -> dict:
         "queries": merged_queries,
         "default_service": cfg.get("default_service"),
         "services": cfg.get("services", []),
+        "dora": cfg.get("dora"),
     }
 
 

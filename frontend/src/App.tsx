@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { Overview } from './types';
+import type { Overview, DoraMetrics } from './types';
 import { fmtClock } from './lib/format';
 import { config } from './lib/config';
 import { useTheme } from './hooks/useTheme';
@@ -16,15 +16,18 @@ import SloTable from './components/SloTable';
 import GoldenSignals from './components/GoldenSignals';
 import ErrorBudgetBurn from './components/ErrorBudgetBurn';
 import CapacityGrid from './components/CapacityGrid';
+import DoraPanel from './components/DoraPanel';
 import { TOUR_STEPS } from './tours';
 import { BubbleBackground } from './components/animate-ui/backgrounds/bubble';
 
 const POLL_INTERVAL_MS = 20_000;
+const DORA_POLL_INTERVAL_MS = 300_000;
 
 const monoMuted: React.CSSProperties = { fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--muted)' };
 
 export default function App() {
   const [data, setData] = useState<Overview | null>(null);
+  const [doraData, setDoraData] = useState<DoraMetrics | null>(null);
   const [clock, setClock] = useState(fmtClock(config.timezone));
   const [error, setError] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState(
@@ -75,6 +78,23 @@ export default function App() {
     const id = setInterval(load, POLL_INTERVAL_MS);
     return () => { cancelled = true; clearInterval(id); };
   }, [selectedService]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadDora = async () => {
+      try {
+        const res = await fetch('/api/sre/dora');
+        if (!res.ok) return;
+        const json = await res.json();
+        if (!cancelled) setDoraData(json);
+      } catch {
+        // DORA panel is a secondary signal — silently retry on the next poll
+      }
+    };
+    loadDora();
+    const id = setInterval(loadDora, DORA_POLL_INTERVAL_MS);
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
 
   const services = data?.slo_table.map(r => ({ name: r.name })) ?? (selectedService ? [{ name: selectedService }] : []);
 
@@ -187,6 +207,7 @@ export default function App() {
                 <div className="sre-dashboard-aside">
                   <GoldenSignals golden={golden_signals} selectedService={kpis.selected_service} />
                   <CapacityGrid capacity={capacity} selectedService={kpis.selected_service} />
+                  {doraData && <DoraPanel dora={doraData} />}
                 </div>
               </div>
             </div>

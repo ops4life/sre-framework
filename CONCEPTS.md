@@ -105,8 +105,46 @@ Infrastructure headroom. Tracking VPS-level CPU, memory, and disk alongside per-
 
 ---
 
+## DORA Metrics
+
+The four metrics identified by Google's DORA (DevOps Research and Assessment) program as the strongest predictors of software delivery performance:
+
+### Deployment Frequency
+How often you successfully ship to production. Elite performers deploy on demand, multiple times a day.
+
+**Computed as:** successful `deploy.yml` runs ÷ window days
+
+### Lead Time for Changes
+The median time from a commit landing on `main` to it being deployed. Shorter lead time means faster feedback loops and smaller, easier-to-review changes.
+
+**Computed as:** `median(deploy run created_at − commit timestamp)`
+
+### Change Failure Rate
+The percentage of deploys that trigger an incident shortly afterward (correlated against Uptime Kuma incidents within a configurable window, default 60 minutes).
+
+**Computed as:** `deploys followed by a correlated incident / total deploys × 100`
+
+### Mean Time to Recovery (MTTR)
+How long it takes to restore service after a deploy-triggered incident.
+
+**Computed as:** `mean(incident duration)` for incidents correlated to a deploy
+
+### Performance tiers
+
+Values are bucketed into Elite / High / Medium / Low, adapted from the 2021 Accelerate State of DevOps report (with monotonic boundaries filled in where the official ranges have gaps):
+
+| Tier | Deploy Frequency | Lead Time | Change Failure Rate | MTTR |
+|------|------|------|------|------|
+| Elite | ≥ 1/day | < 1 hour | ≤ 15% | < 1 hour |
+| High | ≥ 1/week | < 1 week | ≤ 30% | < 1 day |
+| Medium | ≥ 1/month | < 6 months | ≤ 45% | < 1 week |
+| Low | < 1/month | ≥ 6 months | > 45% | ≥ 1 week |
+
+---
+
 ## Further reading
 
 - [Google SRE Book (free online)](https://sre.google/sre-book/table-of-contents/)
 - [The Site Reliability Workbook](https://sre.google/workbook/table-of-contents/)
 - [SLO Burn Rate Alerting](https://sre.google/workbook/alerting-on-slos/)
+- [2021 Accelerate State of DevOps Report](https://dora.dev/publications/)
