@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.19.0](https://github.com/ops4life/sre-framework/compare/v1.18.0...v1.19.0) (2026-07-02)
+
+
+### Features
+
+* add DORA metrics panel ([27650af](https://github.com/ops4life/sre-framework/commit/27650af9d52029005bb8fe5129f0f5fa2e75f7fa))
+
 # [1.18.0](https://github.com/ops4life/sre-framework/compare/v1.17.0...v1.18.0) (2026-06-19)
 
 
