@@ -11,7 +11,7 @@
     "test:coverage": "vitest run --coverage --passWithNoTests"
   },
   "dependencies": {
-    "@sentry/react": "^10.58.0",
+    "@sentry/react": "^11.6.0",
     "motion": "^12.0.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
