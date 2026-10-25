@@ -10,6 +10,9 @@ updates:
     labels:
       - "dependencies"
     open-pull-requests-limit: 10
+    groups:
+      github-actions:
+        patterns: ["*"]
 
   - package-ecosystem: "docker"
     directories:
@@ -23,6 +26,12 @@ updates:
     labels:
       - "dependencies"
     open-pull-requests-limit: 10
+    ignore:
+      # base-image majors (node 26, python 3.14/3.15) are upgraded by hand
+      - dependency-name: "node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "python"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
 
   - package-ecosystem: "docker-compose"
     directories:
@@ -49,6 +58,9 @@ updates:
     labels:
       - "dependencies"
     open-pull-requests-limit: 10
+    groups:
+      pip:
+        patterns: ["*"]
 
   - package-ecosystem: "npm"
     directories:
@@ -62,3 +74,14 @@ updates:
     labels:
       - "dependencies"
     open-pull-requests-limit: 10
+    groups:
+      npm-minor-patch:
+        update-types: ["minor", "patch"]
+    ignore:
+      # majors that need a migration: typescript 7, @sentry/react 11, motion 14
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@sentry/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "motion"
+        update-types: ["version-update:semver-major"]
