@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.1](https://github.com/ops4life/sre-framework/compare/v1.19.0...v1.19.1) (2026-10-26)
+
+
+### Bug Fixes
+
+* **deps:** one pnpm lockfile per dir, clear Dependabot alerts, group updates ([#30](https://github.com/ops4life/sre-framework/issues/30)) ([8dc39d8](https://github.com/ops4life/sre-framework/commit/8dc39d858790d8a96907fce168a0dea4727eacc7))
+
 # [1.19.0](https://github.com/ops4life/sre-framework/compare/v1.18.0...v1.19.0) (2026-07-02)
 
 
