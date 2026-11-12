@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.2](https://github.com/ops4life/sre-framework/compare/v1.19.1...v1.19.2) (2026-11-12)
+
+
+### Bug Fixes
+
+* **deps:** bump frontend vitest to 4.1 and override minimatch ([#43](https://github.com/ops4life/sre-framework/issues/43)) ([44dfd63](https://github.com/ops4life/sre-framework/commit/44dfd63857300ee9cecc4200835a6372f0f198ed))
+
 ## [1.19.1](https://github.com/ops4life/sre-framework/compare/v1.19.0...v1.19.1) (2026-10-26)
 
 
